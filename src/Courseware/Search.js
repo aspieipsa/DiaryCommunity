@@ -1,9 +1,9 @@
 // @flow
 
-import React, { Component } from 'react';
-import ShowCard from './ShowCard';
-import type Show from './types';
-import Header from './Header';
+import React, { Component } from "react";
+import ShowCard from "./ShowCard";
+import type Show from "./types";
+import Header from "./Header";
 
 type Props = {
   shows: Array<Show> //can be mixed, string, etc.. Do not use ANY
@@ -17,7 +17,7 @@ class Search extends Component<Props, State> {
     shows: []
   };
   state = {
-    searchTerm: ''
+    searchTerm: ""
   };
   handleSearchTermChange = (
     event: SyntheticKeyboardEvent<HTMLInputElement>
