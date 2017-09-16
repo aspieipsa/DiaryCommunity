@@ -1,28 +1,39 @@
-import React, { Component } from "react";
-import ShowCard from "./ShowCard";
-import preload from "./data.json";
+// @flow
 
-class Search extends Component {
-  state = {
-    searchTerm: ""
+import React, { Component } from 'react';
+import ShowCard from './ShowCard';
+import type Show from './types';
+import Header from './Header';
+
+type Props = {
+  shows: Array<Show> //can be mixed, string, etc.. Do not use ANY
+};
+type State = {
+  searchTerm: string
+};
+
+class Search extends Component<Props, State> {
+  static defaultProps = {
+    shows: []
   };
-  handleSearchTermChange = event => {
-    this.setState({ searchTerm: event.target.value });
+  state = {
+    searchTerm: ''
+  };
+  handleSearchTermChange = (
+    event: SyntheticKeyboardEvent<HTMLInputElement>
+  ) => {
+    this.setState({ searchTerm: event.currentTarget.value });
   };
   render() {
     return (
       <div className="search">
-        <header>
-          <h1>svideo</h1>
-          <input
-            onChange={this.handleSearchTermChange}
-            value={this.state.searchTerm}
-            type="text"
-            placeholder="Search"
-          />
-        </header>
+        <Header
+          showSearch={true}
+          searchTer={this.state.searchTerm}
+          handleSearchTermChange={this.handleSearchTermChange}
+        />
         <div>
-          {preload.shows
+          {this.props.shows
             .filter(
               show =>
                 `${show.title} ${show.description}`

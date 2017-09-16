@@ -5,10 +5,25 @@
   margin-bottom: 25px;
   padding-right: 10px;
   overflow: hidden;
+  color: black;
+  text-decoration: none;
 }
 
 .showcard-poster {
   width: 46%;
   float: left;
   margin-right: 10px;
+}
+
+.loading-rotation {
+  animation: rotation 4s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }

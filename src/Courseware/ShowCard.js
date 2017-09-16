@@ -1,9 +1,13 @@
+// @flow
+
 import React from 'react';
 import { string } from 'prop-types';
+import { Link } from 'react-router-dom';
 import './mystyles.css';
+import type Show from './types';
 
-const ShowCard = props => (
-  <div className="showcard-wrapper">
+const ShowCard = (props: Show) => (
+  <Link className="showcard-wrapper" to={`/details/${props.imdbID}`}>
     <img
       className="showcard-poster"
       alt={`${props.title} Show Poster`}
@@ -14,14 +18,7 @@ const ShowCard = props => (
       <h4>({props.year})</h4>
       <p>{props.description}</p>
     </div>
-  </div>
+  </Link>
 );
-
-ShowCard.propTypes = {
-  poster: string.isRequired,
-  title: string.isRequired,
-  year: string.isRequired,
-  description: string.isRequired
-};
 
 export default ShowCard;
