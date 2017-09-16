@@ -1,23 +1,27 @@
 {
-  "posts": [
+  "entries": [
     {
-      "postID": 1,
-      "content": "Hello, this is my first post!",
+      "entryID": "1",
+      "title": "Mao! Mao is kesi.",
+      "body": "Hello, this is my first post!",
       "author": "Simoroshka",
       "comments": [
         {
-          "comment": "Oh hello there!",
+          "commentID": "1",
+          "body": "Oh hello there!",
           "author": "Nicola"
         }
       ]
     },
     {
-      "postID": 2,
-      "content": "Hello, this is my second post!",
+      "entryID": "2",
+      "title": "Kesi! Kesi is Mao.",
+      "body": "Hello, this is my second post!",
       "author": "Simoroshka",
       "comments": [
         {
-          "comment": "Hi again! Mau.",
+          "commentID": "2",
+          "body": "Hi again! Mau.",
           "author": "Nicola"
         }
       ]
