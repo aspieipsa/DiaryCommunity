@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './Courseware/style.css';
-import App from './Courseware/App';
+//import './diary/style.css';
+import App from './diary/DiaryApp';
 
 // use for performance profiling:
 // import Perf from "react-addons-perf";
@@ -11,7 +11,7 @@ import App from './Courseware/App';
 ReactDOM.render(<App />, document.getElementById('root'));
 
 if (module.hot) {
-  module.hot.accept('./Courseware/App', () => {
+  module.hot.accept('./diary/DiaryApp', () => {
     ReactDOM.render(<App />, document.getElementById('root'));
   });
 }

@@ -9,7 +9,7 @@ import Search from './Search';
 import Details from './Details';
 import preload from './data.json';
 
-const FourOhFour = () => <h1>405</h1>;
+const FourOhFour = () => <h1>404</h1>;
 
 const App = () => (
   <BrowserRouter>

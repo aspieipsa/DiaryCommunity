@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "postID": 1,
+      "content": "Hello, this is my first post!",
+      "author": "Simoroshka",
+      "comments": [
+        {
+          "comment": "Oh hello there!",
+          "author": "Nicola"
+        }
+      ]
+    },
+    {
+      "postID": 2,
+      "content": "Hello, this is my second post!",
+      "author": "Simoroshka",
+      "comments": [
+        {
+          "comment": "Hi again! Mau.",
+          "author": "Nicola"
+        }
+      ]
+    }
+  ]
+}
