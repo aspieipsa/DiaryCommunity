@@ -22,6 +22,7 @@ class Search extends Component<Props, State> {
   handleSearchTermChange = (
     event: SyntheticKeyboardEvent<HTMLInputElement>
   ) => {
+    console.log(event.currentTarget.value);
     this.setState({ searchTerm: event.currentTarget.value });
   };
   render() {
@@ -29,7 +30,7 @@ class Search extends Component<Props, State> {
       <div className="search">
         <Header
           showSearch={true}
-          searchTer={this.state.searchTerm}
+          searchTerm={this.state.searchTerm}
           handleSearchTermChange={this.handleSearchTermChange}
         />
         <div>
