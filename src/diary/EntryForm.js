@@ -16,7 +16,8 @@ class EntryForm extends React.Component {
     this.setState({ entryBody: event.target.value });
   };
 
-  handleSubmitOnClick = () => {
+  handleOnSubmit = event => {
+    event.preventDefault();
     let entry = {
       title: this.state.entryTitle,
       body: this.state.entryBody,
@@ -28,7 +29,7 @@ class EntryForm extends React.Component {
 
   render() {
     return (
-      <div className="entry-form--form">
+      <form className="entry-form--form" onSubmit={this.handleOnSubmit}>
         <input
           className="entry-form--title"
           type="text"
@@ -40,16 +41,11 @@ class EntryForm extends React.Component {
           onChange={this.handleTextAreaOnChange}
           value={this.state.entryBody}
         />
-        <button
-          className="entry-form--button"
-          onClick={this.handleSubmitOnClick}
-        >
-          Submit
-        </button>
+        <button className="entry-form--button">Submit</button>
         <button className="entry-form--button" type="cancel">
           Cancel
         </button>
-      </div>
+      </form>
     );
   }
 }

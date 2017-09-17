@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import EntryList from './EntryList.js';
 import EntryPage from './EntryPage.js';
-import LogIn from './auth/LogIn.js';
+import LogInForm from './auth/LogIn.js';
 //temp
 import preload from './data.json';
 
@@ -17,7 +17,7 @@ const Router = () => (
     <div className="app">
       <Switch>
         <Route exact path="/" component={props => <EntryList {...props} />} />
-        <Route path="/login" component={props => <LogIn {...props} />} />
+        <Route path="/login" component={props => <LogInForm {...props} />} />
         <Route
           path="/entry/:id"
           component={(props: { match: Match }) => {

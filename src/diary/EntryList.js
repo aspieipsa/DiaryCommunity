@@ -19,9 +19,12 @@ class EntryList extends React.Component {
   };
 
   render() {
+    console.log(this.state.entries);
     return (
       <div>
-        {this.state.entries.map(entry => <Entry entry={entry} />)}
+        {this.state.entries.map(entry => (
+          <Entry entry={entry} key={entry.entryID} />
+        ))}
         <EntryForm addEntry={this.addEntry} />
       </div>
     );
