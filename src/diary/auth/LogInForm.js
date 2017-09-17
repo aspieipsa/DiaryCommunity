@@ -39,14 +39,14 @@ class LogIn extends React.Component {
             type="password"
             onChange={this.handlePassWordChange}
           />
-          <a className="log-in--forgot-password" href="#">
+          <a className="log-in--forgot-password" href="">
             I forgot my password
           </a>
           <button className="log-in--login-button" type="submit">
             Log in
           </button>
           <p>
-            Don't have an account? <a href="#">Register</a>
+            Don't have an account? <a href="">Register</a>
           </p>
         </form>
       </section>

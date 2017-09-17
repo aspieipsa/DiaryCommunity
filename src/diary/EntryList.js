@@ -1,7 +1,7 @@
 import React from 'react';
 import Entry from './Entry.js';
 import EntryForm from './EntryForm.js';
-import preload from './data.json';
+//import preload from "./data.json";
 
 class EntryList extends React.Component {
   state = {
@@ -9,7 +9,7 @@ class EntryList extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({ entries: preload.entries });
+    this.setState({ entries: this.props.entries });
   }
 
   addEntry = entry => {
