@@ -1,27 +1,31 @@
 import data from './data.json';
 
 const API = {
-  getUserPosts,
-  getPostData,
+  getUserEntries,
+  getEntryData,
   getUserProfileData,
   getUserFavoriteFeed
 };
 
-function getUserPosts(userID) {
-  return data.posts.filter(a => a.userID === userID);
+function getUserEntries(userURL) {
+  console.log('Hello', userURL);
+  console.log('Data', data);
+  const user = data.users.find(a => a.url === userURL);
+  if (user) return data.entries.filter(a => a.author === user.name);
+  else return [];
 }
 
-function getPostData(postID) {
-  return data.posts.find(a => a.postID === postID);
+function getEntryData(entryID) {
+  return data.entries.find(a => a.entryID === entryID);
 }
 
-function getUserProfileData(userID) {
-  return data.users.find(a => a.userID === userID);
+function getUserProfileData(userURL) {
+  return data.users.find(a => a.url === userURL);
 }
 
-function getUserFavoriteFeed(userID) {
-  const userFavs = data.users.find(a => a.userID === userID).favorites;
-  return data.posts.filter(a => userFavs.indexOf(a.userID));
+function getUserFavoriteFeed(userURL) {
+  const userFavs = data.users.find(a => a.url === userURL).favorites;
+  return data.entries.filter(a => userFavs.indexOf(a.userID));
 }
 
 export default API;

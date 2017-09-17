@@ -59,6 +59,40 @@
           "author": "Nicola"
         }
       ]
+    },
+    {
+      "userID": "2",
+      "entryID": "3",
+      "author": "Kesi",
+      "title": "Kesi! Kesi is kesi.",
+      "body": "Hello, this is my first post! It is Kesi",
+
+      "comments": [
+        {
+          "commentID": "4",
+          "body": "Oh hello there!",
+          "author": "Nicola"
+        },
+        {
+          "commentID": "5",
+          "body": "Hi again! Mau.",
+          "author": "Nicola"
+        }
+      ]
+    },
+    {
+      "userID": "3",
+      "entryID": "4",
+      "author": "Simoroshka",
+      "title": "Hallou!",
+      "body": "HAAAAAAAAAALLLLOOOOOOOOUUUUUUU!",
+      "comments": [
+        {
+          "commentID": "6",
+          "body": "Hi again! Mau.",
+          "author": "Nicola"
+        }
+      ]
     }
   ]
 }
