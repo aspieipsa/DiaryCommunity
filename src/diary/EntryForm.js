@@ -29,7 +29,10 @@ class EntryForm extends React.Component {
 
   render() {
     return (
-      <form className="entry-form--form" onSubmit={this.handleOnSubmit}>
+      <form
+        className="entry-form--form col-md-10"
+        onSubmit={this.handleOnSubmit}
+      >
         <input
           className="entry-form--title"
           type="text"

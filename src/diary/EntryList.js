@@ -1,6 +1,7 @@
 import React from 'react';
 import Entry from './Entry.js';
 import EntryForm from './EntryForm.js';
+import EntryOptions from './EntryOptions.js';
 //import preload from "./data.json";
 
 class EntryList extends React.Component {
@@ -12,20 +13,23 @@ class EntryList extends React.Component {
     this.setState({ entries: this.props.entries });
   }
 
+  /* 
   addEntry = entry => {
     let entries = this.state.entries;
     entries.push(entry);
     this.setState({ entries });
-  };
+  }; */
 
   render() {
-    console.log(this.state.entries);
     return (
-      <div>
+      <div className="col-md-10">
         {this.state.entries.map(entry => (
-          <Entry entry={entry} key={entry.entryID} />
+          <div>
+            <Entry entry={entry} key={entry.entryID} />
+            <EntryOptions userURL={entry.userURL} entryID={entry.entryID} />
+          </div>
         ))}
-        <EntryForm addEntry={this.addEntry} />
+        {/*<EntryForm addEntry={this.addEntry} />*/}
       </div>
     );
   }

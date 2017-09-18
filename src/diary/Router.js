@@ -6,7 +6,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 import EntryList from './EntryList.js';
 import EntryPage from './EntryPage.js';
-import LogInForm from './auth/LogIn.js';
+import LogInForm from './auth/LogInForm.js';
+import RegistrationForm from './auth/RegistrationForm.js';
+import FeedPage from './FeedPage.js';
+import NewEntry from './NewEntry.js';
+import UserProfile from './UserProfile.js';
 //temp
 //import preload from "./data.json";
 import api from './apiMockup/api';
@@ -22,6 +26,10 @@ const Router = () => (
         */}
         <Route path="/login" component={props => <LogInForm {...props} />} />
         <Route
+          path="/registration"
+          component={props => <RegistrationForm {...props} />}
+        />
+        <Route
           path="/entry/:id"
           component={(props: { match: Match }) => {
             return (
@@ -33,30 +41,38 @@ const Router = () => (
           }}
         />
         <Route
+          exact
+          path="/newentry"
+          component={props => <NewEntry {...props} />}
+        />
+        <Route
           path="/:userURL/favorites"
           component={(props: { match: Match }) => {
             return (
-              <EntryList
+              <FeedPage
                 entries={api.getUserFavoriteFeed(props.match.params.userURL)}
                 {...props}
               />
             );
           }}
         />
-
-        {/* Enable this when you have the components
         <Route
           path="/:userURL/profile"
           component={(props: { match: Match }) => {
-            return <UserPage entries={api.getUserProfileData(props.match.params.userURL)} {...props} />;
+            return (
+              <UserProfile
+                user={api.getUserProfileData(props.match.params.userURL)}
+                {...props}
+              />
+            );
           }}
-        />*/}
+        />
 
         <Route
           path="/:userURL/diary"
           component={(props: { match: Match }) => {
             return (
-              <EntryList
+              <FeedPage
                 entries={api.getUserEntries(props.match.params.userURL)}
                 {...props}
               />
@@ -81,7 +97,7 @@ const Router = () => (
           path="/:userURL"
           component={(props: { match: Match }) => {
             return (
-              <EntryList
+              <FeedPage
                 entries={api.getUserEntries(props.match.params.userURL)}
                 {...props}
               />

@@ -23,6 +23,7 @@ class CommentForm extends React.Component {
   render() {
     return (
       <div className="comment-form--form">
+        <h2>Add a comment: </h2>
         <textarea
           className="comment-form--body"
           onChange={this.handleTextAreaOnChange}

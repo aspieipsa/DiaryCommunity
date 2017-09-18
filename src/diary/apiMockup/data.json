@@ -28,6 +28,7 @@
   "entries": [
     {
       "userID": "1",
+      "userURL": "mau",
       "entryID": "1",
       "author": "Mau",
       "title": "Mao! Mao is kesi.",
@@ -48,6 +49,7 @@
     },
     {
       "userID": "1",
+      "userURL": "mau",
       "entryID": "2",
       "author": "Mau",
       "title": "Kesi! Kesi is Mao.",
@@ -62,6 +64,7 @@
     },
     {
       "userID": "2",
+      "userURL": "kesi",
       "entryID": "3",
       "author": "Kesi",
       "title": "Kesi! Kesi is kesi.",
@@ -82,6 +85,7 @@
     },
     {
       "userID": "3",
+      "userURL": "simoroshka",
       "entryID": "4",
       "author": "Simoroshka",
       "title": "Hallou!",

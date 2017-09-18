@@ -2,6 +2,7 @@
   border: 1px solid black;
   border-radius: 10px;
   margin: 20% auto;
+  padding-bottom: 10px;
   text-align: center;
   width: 600px;
 }
@@ -9,6 +10,8 @@
 .registration--label {
   display: inline-block;
   margin-right: 10px;
+  text-align: right;
+  width: 150px;
 }
 
 .registration--input {

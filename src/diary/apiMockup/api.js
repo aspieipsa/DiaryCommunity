@@ -25,7 +25,7 @@ function getUserProfileData(userURL) {
 
 function getUserFavoriteFeed(userURL) {
   const userFavs = data.users.find(a => a.url === userURL).favorites;
-  return data.entries.filter(a => userFavs.indexOf(a.userID));
+  return data.entries.filter(a => userFavs.indexOf(a.userID) > -1);
 }
 
 export default API;

@@ -1,6 +1,7 @@
 import React from 'react';
 import './css/Entry.css';
 
+/* Entry consists of a single diary entry, with the entry body and entry meta. */
 const Entry = props => {
   return (
     <section className="container-fluid entry--entry">
