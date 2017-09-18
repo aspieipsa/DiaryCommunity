@@ -3,6 +3,7 @@
 import React from 'react';
 //import { render } from "react-dom";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import PrivateRoute from './auth/PrivateRoute.js';
 import type { Match } from 'react-router-dom';
 import EntryList from './EntryList.js';
 import EntryPage from './EntryPage.js';
@@ -29,6 +30,8 @@ const Router = () => (
           path="/registration"
           component={props => <RegistrationForm {...props} />}
         />
+        <PrivateRoute path="/protected" component={() => <h3>Protected</h3>} />
+
         <Route
           path="/entry/:id"
           component={(props: { match: Match }) => {
