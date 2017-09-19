@@ -4,9 +4,13 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.12",
+    "path": "^0.12.7",
     "react": "^15.6.1",
     "react-addons-perf": "^15.4.2",
     "react-dom": "^15.6.1",
+    "react-http-request": "^1.0.3",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.0.13",
@@ -16,17 +20,16 @@
   "scripts": {
     "coverage": "npm test -- --coverage",
     "precommit": "lint-staged",
-    "start": "react-scripts start",
+    "start-client": "react-scripts start",
+    "start-server": "node ./server/server.js",
     "build": "react-scripts build",
     "jest": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow"
   },
+  "proxy": "http://localhost:27016",
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
+    "src/**/*.{js,jsx,json,css}": ["prettier --single-quote --write", "git add"]
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

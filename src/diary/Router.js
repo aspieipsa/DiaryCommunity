@@ -12,6 +12,8 @@ import RegistrationForm from './auth/RegistrationForm.js';
 import FeedPage from './FeedPage.js';
 import NewEntry from './NewEntry.js';
 import UserProfile from './UserProfile.js';
+//HTTP requests
+import Request from 'react-http-request';
 //temp
 //import preload from "./data.json";
 import api from './apiMockup/api';
@@ -22,6 +24,28 @@ const Router = () => (
   <BrowserRouter>
     <div className="app">
       <Switch>
+        <Route
+          exact
+          path="/"
+          component={props => {
+            return (
+              <Request
+                url="/test"
+                method="get"
+                accept="text/plain"
+                verbose={true}
+              >
+                {({ error, result, loading }) => {
+                  if (loading) {
+                    return <div>loading...</div>;
+                  } else {
+                    return <div>{result.text}</div>;
+                  }
+                }}
+              </Request>
+            );
+          }}
+        />
         {/* Main page 
         <Route exact path="/" component={props => <MainPage {...props} />} />
         */}
