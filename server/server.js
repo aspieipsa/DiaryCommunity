@@ -1,9 +1,17 @@
 const express = require("express"),
   server = express(),
-  path = require("path");
+  path = require("path"),
+  mongoose = require("mongoose");
+
+mongoose.connect("mongodb://localhost/diary");
 
 // Serve static assets
 //server.use(express.static(path.resolve(__dirname, "..", "public")));
+
+//Routes
+let dbDevOpsRoutes = require("./routes/dbDevOps.js");
+
+server.use("/dbDevOps", dbDevOpsRoutes);
 
 server.get("/test", (req, res) => {
   res.send("Mao");
