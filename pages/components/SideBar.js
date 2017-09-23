@@ -27,6 +27,19 @@ const SideBar = props => {
           </li>
         </ul>
       </div>
+      <style jsx>{`
+        .sidebar--sidebar {
+          border: 1px solid black;
+        }
+
+        .sidebar--user {
+          border-bottom: 1px solid black;
+        }
+
+        .sidebar--link-list {
+          list-style: none;
+        }
+      `}</style>
     </aside>
   );
 };

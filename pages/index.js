@@ -2,6 +2,7 @@ import Link from "next/link";
 import PageHeaders from "./components/PageHeaders";
 import api from "../apiMockup/api";
 import fetch from "isomorphic-fetch";
+// we could use axios instead of fetch when we need to make requests, it is nicerer
 
 const Index = () => (
   <div>

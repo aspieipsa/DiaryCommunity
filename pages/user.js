@@ -1,5 +1,4 @@
 import api from "../apiMockup/api";
-import fetch from "isomorphic-fetch";
 import PageHeaders from "./components/PageHeaders";
 import UserProfile from "./components/UserProfile";
 
