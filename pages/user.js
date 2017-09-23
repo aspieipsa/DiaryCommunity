@@ -1,6 +1,7 @@
-import Head from "next/head";
 import api from "../apiMockup/api";
 import fetch from "isomorphic-fetch";
+import PageHeaders from "./components/PageHeaders";
+import UserProfile from "./components/UserProfile";
 
 export default class Page extends React.Component {
   static async getInitialProps({ pathname, query }) {
@@ -13,19 +14,10 @@ export default class Page extends React.Component {
     };
   }
   render() {
-    let { name, info } = this.props.user;
     return (
       <div>
-        <Head>
-          <title>Diary is the best, {name}!</title>
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
-        </Head>
-        <h3>Hello {name}!</h3>
-        <h4>Here is your profile info: </h4>
-        <p>{info}</p>
+        <PageHeaders title={`Profile page of ${this.props.user.name}`} />
+        <UserProfile user={this.props.user} />
       </div>
     );
   }

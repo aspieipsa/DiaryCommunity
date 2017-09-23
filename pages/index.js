@@ -1,14 +1,11 @@
-import Head from "next/head";
 import Link from "next/link";
+import PageHeaders from "./components/PageHeaders";
 import api from "../apiMockup/api";
 import fetch from "isomorphic-fetch";
 
 const Index = () => (
   <div>
-    <Head>
-      <title>My page title</title>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
+    <PageHeaders title={"Diary Community main page"} />>
     <p>Hello world! We are making the best diary app!</p>
     <Link href="/user?userURL=simoroshka" as="/diary/simoroshka">
       <a>Click me</a>
