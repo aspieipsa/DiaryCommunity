@@ -6,7 +6,8 @@ export default class Page extends React.Component {
   static async getInitialProps({ pathname, query }) {
     //console.log("REQ", req); // can be seen in the serve console, not browser
     console.log("Query", query);
-    let user = await api.getUserProfileData(query.name);
+
+    let user = await api.getUserProfileData(query.userURL);
     return {
       user
     };

@@ -10,7 +10,7 @@ const Index = () => (
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <p>Hello world! We are making the best diary app!</p>
-    <Link href={{ pathname: "/user", query: { name: "simoroshka" } }}>
+    <Link href="/user?userURL=simoroshka" as="/diary/simoroshka">
       <a>Click me</a>
     </Link>
   </div>

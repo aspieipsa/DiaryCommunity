@@ -72,39 +72,39 @@ var Page = function (_React$Component) {
       return _react2.default.createElement("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 17
+          lineNumber: 18
         }
       }, _react2.default.createElement(_head2.default, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 18
+          lineNumber: 19
         }
       }, _react2.default.createElement("title", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 19
+          lineNumber: 20
         }
       }, "Diary is the best, ", name, "!"), _react2.default.createElement("meta", {
         name: "viewport",
         content: "initial-scale=1.0, width=device-width",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 20
+          lineNumber: 21
         }
       })), _react2.default.createElement("h3", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 25
+          lineNumber: 26
         }
       }, "Hello ", name, "!"), _react2.default.createElement("h4", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 26
+          lineNumber: 27
         }
       }, "Here is your profile info: "), _react2.default.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 27
+          lineNumber: 28
         }
       }, info));
     }
@@ -121,8 +121,9 @@ var Page = function (_React$Component) {
               case 0:
                 //console.log("REQ", req); // can be seen in the serve console, not browser
                 console.log("Query", query);
+
                 _context.next = 3;
-                return _api2.default.getUserProfileData(query.name);
+                return _api2.default.getUserProfileData(query.userURL);
 
               case 3:
                 user = _context.sent;
@@ -163,4 +164,4 @@ err - Error object if any error is encountered during the rendering
 */
 
 exports.default = Page;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL3VzZXIuanMiXSwibmFtZXMiOlsiSGVhZCIsImFwaSIsImZldGNoIiwiUGFnZSIsInByb3BzIiwidXNlciIsIm5hbWUiLCJpbmZvIiwicGF0aG5hbWUiLCJxdWVyeSIsImNvbnNvbGUiLCJsb2ciLCJnZXRVc2VyUHJvZmlsZURhdGEiLCJSZWFjdCIsIkNvbXBvbmVudCJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxBQUFPOzs7O0FBQ1AsQUFBTzs7OztBQUNQLEFBQU87Ozs7Ozs7OztJQUVjLEE7Ozs7Ozs7Ozs7OzZCQVNWO3dCQUNjLEtBQUEsQUFBSyxNQURuQixBQUN5QjtVQUR6QixBQUNELG1CQURDLEFBQ0Q7VUFEQyxBQUNLLG1CQURMLEFBQ0ssQUFDWjs7NkJBQ0UsY0FBQTs7b0JBQUE7c0JBQUEsQUFDRTtBQURGO0FBQUEsT0FBQSxrQkFDRSxBQUFDOztvQkFBRDtzQkFBQSxBQUNFO0FBREY7QUFBQSx5QkFDRSxjQUFBOztvQkFBQTtzQkFBQTtBQUFBO0FBQUEsU0FBMkIsdUJBQTNCLE1BREYsQUFDRSxBQUNBO2NBQUEsQUFDTyxBQUNMO2lCQUZGLEFBRVU7O29CQUZWO3NCQUhKLEFBQ0UsQUFFRSxBQUtGO0FBTEU7QUFDRSwyQkFJSixjQUFBOztvQkFBQTtzQkFBQTtBQUFBO0FBQUEsU0FBVyxVQUFYLE1BUkYsQUFRRSxBQUNBLHNCQUFBLGNBQUE7O29CQUFBO3NCQUFBO0FBQUE7QUFBQSxTQVRGLEFBU0UsQUFDQSxnREFBQSxjQUFBOztvQkFBQTtzQkFBQSxBQUFJO0FBQUo7QUFBQSxTQVhKLEFBQ0UsQUFVRSxBQUdMOzs7Ozs7WSxBQXhCOEIsZ0JBQUEsQTtZQUFVLEEsYUFBQSxBOzs7OzttQkFDdkM7QUFDQTt3QkFBQSxBQUFRLElBQVIsQUFBWSxTQUFaLEFBQXFCOzt1QkFDSixjQUFBLEFBQUksbUJBQW1CLE1BQXZCLEEsQUFBNkI7O21CQUExQztBOzt3QixBQUNHO0FBQUEsQUFDTDs7Ozs7Ozs7Ozs7Ozs7Ozs7OztFQU40QixnQkFBTSxBOztBQTRCeEM7Ozs7Ozs7Ozs7Ozs7a0JBNUJxQixBIiwiZmlsZSI6InVzZXIuanM/ZW50cnkiLCJzb3VyY2VSb290IjoiL1VzZXJzL2FubmFrcnVnbGFpYS9kZXYvRGlhcnlDb20vY2xpZW50In0=
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzL3VzZXIuanMiXSwibmFtZXMiOlsiSGVhZCIsImFwaSIsImZldGNoIiwiUGFnZSIsInByb3BzIiwidXNlciIsIm5hbWUiLCJpbmZvIiwicGF0aG5hbWUiLCJxdWVyeSIsImNvbnNvbGUiLCJsb2ciLCJnZXRVc2VyUHJvZmlsZURhdGEiLCJ1c2VyVVJMIiwiUmVhY3QiLCJDb21wb25lbnQiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQUFBTzs7OztBQUNQLEFBQU87Ozs7QUFDUCxBQUFPOzs7Ozs7Ozs7SUFFYyxBOzs7Ozs7Ozs7Ozs2QkFVVjt3QkFDYyxLQUFBLEFBQUssTUFEbkIsQUFDeUI7VUFEekIsQUFDRCxtQkFEQyxBQUNEO1VBREMsQUFDSyxtQkFETCxBQUNLLEFBQ1o7OzZCQUNFLGNBQUE7O29CQUFBO3NCQUFBLEFBQ0U7QUFERjtBQUFBLE9BQUEsa0JBQ0UsQUFBQzs7b0JBQUQ7c0JBQUEsQUFDRTtBQURGO0FBQUEseUJBQ0UsY0FBQTs7b0JBQUE7c0JBQUE7QUFBQTtBQUFBLFNBQTJCLHVCQUEzQixNQURGLEFBQ0UsQUFDQTtjQUFBLEFBQ08sQUFDTDtpQkFGRixBQUVVOztvQkFGVjtzQkFISixBQUNFLEFBRUUsQUFLRjtBQUxFO0FBQ0UsMkJBSUosY0FBQTs7b0JBQUE7c0JBQUE7QUFBQTtBQUFBLFNBQVcsVUFBWCxNQVJGLEFBUUUsQUFDQSxzQkFBQSxjQUFBOztvQkFBQTtzQkFBQTtBQUFBO0FBQUEsU0FURixBQVNFLEFBQ0EsZ0RBQUEsY0FBQTs7b0JBQUE7c0JBQUEsQUFBSTtBQUFKO0FBQUEsU0FYSixBQUNFLEFBVUUsQUFHTDs7Ozs7O1ksQUF6QjhCLGdCQUFBLEE7WUFBVSxBLGFBQUEsQTs7Ozs7bUJBQ3ZDO0FBQ0E7d0JBQUEsQUFBUSxJQUFSLEFBQVksU0FBWixBQUFxQjs7O3VCQUVKLGNBQUEsQUFBSSxtQkFBbUIsTUFBdkIsQSxBQUE2Qjs7bUJBQTFDO0E7O3dCLEFBQ0c7QUFBQSxBQUNMOzs7Ozs7Ozs7Ozs7Ozs7Ozs7O0VBUDRCLGdCQUFNLEE7O0FBNkJ4Qzs7Ozs7Ozs7Ozs7OztrQkE3QnFCLEEiLCJmaWxlIjoidXNlci5qcz9lbnRyeSIsInNvdXJjZVJvb3QiOiIvVXNlcnMvYW5uYWtydWdsYWlhL2Rldi9EaWFyeUNvbS9jbGllbnQifQ==
