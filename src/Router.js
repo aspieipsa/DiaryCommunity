@@ -3,12 +3,11 @@
 import React from 'react';
 //import { render } from "react-dom";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import PrivateRoute from './auth/PrivateRoute.js';
 import type { Match } from 'react-router-dom';
-import EntryList from './EntryList.js';
+import EntryList from './components/EntryList.js';
 import EntryPage from './EntryPage.js';
-import LogInForm from './auth/LogInForm.js';
-import RegistrationForm from './auth/RegistrationForm.js';
+import LogInForm from './components/auth/LogInForm.js';
+import RegistrationForm from './components/auth/RegistrationForm.js';
 import FeedPage from './FeedPage.js';
 import NewEntry from './NewEntry.js';
 import UserProfile from './UserProfile.js';
@@ -16,7 +15,7 @@ import UserProfile from './UserProfile.js';
 import Request from 'react-http-request';
 //temp
 //import preload from "./data.json";
-import api from './apiMockup/api';
+import api from './components/apiMockup/api';
 
 const FourOhFour = () => <h1>404</h1>;
 
@@ -24,28 +23,6 @@ const Router = () => (
   <BrowserRouter>
     <div className="app">
       <Switch>
-        <Route
-          exact
-          path="/"
-          component={props => {
-            return (
-              <Request
-                url="/test"
-                method="get"
-                accept="text/plain"
-                verbose={true}
-              >
-                {({ error, result, loading }) => {
-                  if (loading) {
-                    return <div>loading...</div>;
-                  } else {
-                    return <div>{result.text}</div>;
-                  }
-                }}
-              </Request>
-            );
-          }}
-        />
         {/* Main page 
         <Route exact path="/" component={props => <MainPage {...props} />} />
         */}
@@ -53,19 +30,6 @@ const Router = () => (
         <Route
           path="/registration"
           component={props => <RegistrationForm {...props} />}
-        />
-        <PrivateRoute path="/protected" component={() => <h3>Protected</h3>} />
-
-        <Route
-          path="/entry/:id"
-          component={(props: { match: Match }) => {
-            return (
-              <EntryPage
-                entry={api.getEntryData(props.match.params.id)}
-                {...props}
-              />
-            );
-          }}
         />
         <Route
           exact
@@ -88,7 +52,8 @@ const Router = () => (
           component={(props: { match: Match }) => {
             return (
               <UserProfile
-                user={api.getUserProfileData(props.match.params.userURL)}
+                fetchRoute={'/dbfetch/users/'}
+                userURL={props.match.params.userURL}
                 {...props}
               />
             );
@@ -100,7 +65,8 @@ const Router = () => (
           component={(props: { match: Match }) => {
             return (
               <FeedPage
-                entries={api.getUserEntries(props.match.params.userURL)}
+                fetchRoute={'/dbfetch/entries/'}
+                userURL={props.match.params.userURL}
                 {...props}
               />
             );
@@ -108,11 +74,13 @@ const Router = () => (
         />
         {/* this might be more readable than /entry/:id */}
         <Route
-          path="/:userURL/:id"
+          path="/:userURL/:entryID"
           component={(props: { match: Match }) => {
             return (
               <EntryPage
-                entry={api.getEntryData(props.match.params.id)}
+                fetchRoute={'/dbfetch/singleEntry/'}
+                userURL={props.match.params.userURL}
+                entryID={props.match.params.entryID}
                 {...props}
               />
             );
@@ -125,7 +93,8 @@ const Router = () => (
           component={(props: { match: Match }) => {
             return (
               <FeedPage
-                entries={api.getUserEntries(props.match.params.userURL)}
+                fetchRoute={'/dbfetch/entries/'}
+                userURL={props.match.params.userURL}
                 {...props}
               />
             );

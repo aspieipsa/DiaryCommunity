@@ -1,7 +1,7 @@
 let mongoose = require("mongoose"),
   ObjectId = mongoose.Schema.Types.ObjectId,
   commentSchema = new mongoose.Schema({
-    commentID: ObjectId,
+    _id: ObjectId,
     entryID: ObjectId,
     authorID: ObjectId,
     body: String

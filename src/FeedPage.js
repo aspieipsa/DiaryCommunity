@@ -1,6 +1,6 @@
 import React from 'react';
-import SideBar from './SideBar.js';
-import EntryList from './EntryList.js';
+import SideBar from './components/SideBar.js';
+import EntryList from './components/EntryList.js';
 import './css/FeedPage.css';
 
 const FeedPage = props => {
@@ -8,7 +8,7 @@ const FeedPage = props => {
     <div className="container-fluid">
       <div className="row">
         <SideBar />
-        <EntryList entries={props.entries} />
+        <EntryList {...props} />
       </div>
     </div>
   );

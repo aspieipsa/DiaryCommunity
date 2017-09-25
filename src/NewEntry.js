@@ -1,6 +1,6 @@
 import React from 'react';
-import SideBar from './SideBar.js';
-import EntryForm from './EntryForm';
+import SideBar from './components/SideBar.js';
+import EntryForm from './components/EntryForm';
 
 const NewEntry = props => {
   return (

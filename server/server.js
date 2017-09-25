@@ -4,6 +4,11 @@ const express = require("express"),
   mongoose = require("mongoose"),
   bodyParser = require("body-parser");
 
+//Databse routes
+const dbFetch = require("./routes/db/fetch.js");
+
+server.use("/dbfetch/", dbFetch);
+
 mongoose.connect("mongodb://localhost/diary");
 
 server.use(bodyParser.json()); // to support JSON-encoded bodies
@@ -16,10 +21,6 @@ server.use(
 
 // Serve static assets
 //server.use(express.static(path.resolve(__dirname, "..", "public")));
-
-server.get("/test", (req, res) => {
-  res.send("Mao");
-});
 
 //The server needs to listen to requests...
 server.listen(27016, "127.0.0.1", function() {

@@ -2,7 +2,6 @@ import React from 'react';
 import Entry from './Entry.js';
 import EntryForm from './EntryForm.js';
 import EntryOptions from './EntryOptions.js';
-//import preload from "./data.json";
 
 class EntryList extends React.Component {
   state = {
@@ -10,26 +9,24 @@ class EntryList extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({ entries: this.props.entries });
+    fetch(this.props.fetchRoute + this.props.userURL)
+      .then(res => res.json())
+      .then(entries => this.setState({ entries }));
   }
-
-  /* 
-  addEntry = entry => {
-    let entries = this.state.entries;
-    entries.push(entry);
-    this.setState({ entries });
-  }; */
 
   render() {
     return (
       <div className="col-md-10">
         {this.state.entries.map(entry => (
-          <div>
-            <Entry entry={entry} key={entry.entryID} />
-            <EntryOptions userURL={entry.userURL} entryID={entry.entryID} />
+          <div key={entry._id}>
+            <Entry
+              author={entry.author}
+              title={entry.title}
+              body={entry.body}
+            />
+            <EntryOptions userURL={this.props.userURL} entryID={entry._id} />
           </div>
         ))}
-        {/*<EntryForm addEntry={this.addEntry} />*/}
       </div>
     );
   }

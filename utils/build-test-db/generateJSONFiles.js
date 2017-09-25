@@ -13,17 +13,17 @@ function createUser() {
     customURL = name.toLowerCase(),
     email = `${customURL}@${faker.internet.domainName()}`,
     info = faker.lorem.paragraphs(),
-    entries = [],
-    comments = [],
-    favorites = [],
+    entryIDs = [],
+    commentIDs = [],
+    favoriteIDs = [],
     user = {
       name,
       customURL,
       email,
       info,
-      entries,
-      comments,
-      favorites
+      entryIDs,
+      commentIDs,
+      favoriteIDs
     };
 
   return user;
@@ -33,12 +33,13 @@ function createUser() {
 function createEntry() {
   let title = faker.lorem.sentence(),
     body = faker.lorem.paragraphs(),
-    comments = [],
+    commentIDs = [],
     entry = {
       authorID: null,
+      author: "",
       title,
       body,
-      comments
+      commentIDs
     };
 
   return entry;
@@ -49,6 +50,7 @@ function createComment() {
   return {
     entryID: null,
     authorID: null,
+    author: "",
     body: faker.lorem.sentence()
   };
 }
