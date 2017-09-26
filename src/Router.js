@@ -87,7 +87,7 @@ const Router = () => (
           }}
         />
 
-        {/* Same as /:userURL/diary  */}
+        {/* Same as /:userURL/diary. LOOK UP IF Redirect component CAN BE USED TO SHORTEN THIS  */}
         <Route
           path="/:userURL"
           component={(props: { match: Match }) => {
@@ -100,6 +100,7 @@ const Router = () => (
             );
           }}
         />
+
         <Route component={FourOhFour} />
       </Switch>
     </div>

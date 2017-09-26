@@ -1,4 +1,7 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import querystring from 'querystring';
 import './css/RegistrationForm.css';
 
 class RegistrationForm extends React.Component {
@@ -31,8 +34,22 @@ class RegistrationForm extends React.Component {
   };
 
   handleOnSubmit = event => {
+    let props = this.props;
     event.preventDefault();
-    alert('Registered! Or not.');
+    axios
+      .post(
+        '/register',
+        querystring.stringify({
+          username: event.target.username.value,
+          password: event.target.password.value
+        })
+      )
+      .then(function(response) {
+        props.history.push('/newentry');
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   render() {
@@ -41,7 +58,7 @@ class RegistrationForm extends React.Component {
         <h1>Register</h1>
         <form className="registration--form" onSubmit={this.handleOnSubmit}>
           <div>
-            <label className="registration--label" for="username">
+            <label className="registration--label" htmlFor="username">
               Username:
             </label>
             <input
@@ -52,7 +69,7 @@ class RegistrationForm extends React.Component {
             />
           </div>
           <div>
-            <label className="registration--label" for="email">
+            <label className="registration--label" htmlFor="email">
               Email:
             </label>
             <input
@@ -63,7 +80,7 @@ class RegistrationForm extends React.Component {
             />
           </div>
           <div>
-            <label className="registration--label" for="password">
+            <label className="registration--label" htmlFor="password">
               Password:
             </label>
             <input
@@ -74,7 +91,7 @@ class RegistrationForm extends React.Component {
             />
           </div>
           <div>
-            <label className="registration--label" for="confirm-password">
+            <label className="registration--label" htmlFor="confirm-password">
               Confirm password:
             </label>
             <input
@@ -85,7 +102,7 @@ class RegistrationForm extends React.Component {
             />
           </div>
           <div>
-            <label className="registration--label" for="custom-url">
+            <label className="registration--label" htmlFor="custom-url">
               Custom URL:
             </label>
             <input
@@ -104,4 +121,4 @@ class RegistrationForm extends React.Component {
   }
 }
 
-export default RegistrationForm;
+export default withRouter(RegistrationForm);

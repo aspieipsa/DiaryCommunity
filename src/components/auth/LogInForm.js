@@ -1,4 +1,7 @@
 import React from 'react';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import querystring from 'querystring';
 import './css/LogInForm.css';
 //login test
 import fakeAuth from '../apiMockup/fakeAuth.js';
@@ -21,37 +24,37 @@ class LogInForm extends React.Component {
   };
 
   handleOnSubmit = event => {
+    let props = this.props;
     event.preventDefault();
-    alert('Logged in! Or not.');
-  };
-
-  //login test
-  login = () => {
-    fakeAuth.authenticate(() => {
-      this.setState({ redirectToReferrer: true });
-    });
+    axios
+      .post(
+        '/login',
+        querystring.stringify({
+          username: event.target.username.value,
+          password: event.target.password.value
+        })
+      )
+      .then(function(response) {
+        props.history.push('/newentry');
+      })
+      .catch(function(error) {
+        console.log('error');
+      });
   };
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const { redirectToReferrer } = this.state;
-
-    if (redirectToReferrer) {
-      return <Redirect to={from} />;
-    }
-
     return (
       <section className="log-in--section">
         <h1>Log in</h1>
         <form className="log-in--form" onSubmit={this.handleOnSubmit}>
-          <label for="username">Username:</label>
+          <label htmlFor="username">Username:</label>
           <input
             name="username"
             className="log-in--input"
             type="text"
             onChange={this.handleUserNameChange}
           />
-          <label for="password">Password:</label>
+          <label htmlFor="password">Password:</label>
           <input
             name="password"
             className="log-in--input"
@@ -77,4 +80,4 @@ class LogInForm extends React.Component {
   }
 }
 
-export default LogInForm;
+export default withRouter(LogInForm);
