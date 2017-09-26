@@ -1,6 +1,5 @@
 let express = require("express"),
-  router = express.Router(),
-  _ = require("lodash"),
+  router = express.Router(),  
   User = require("../../models/User"),
   Entry = require("../../models/Entry"),
   Comment = require("../../models/Comment");
