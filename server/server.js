@@ -50,16 +50,39 @@ server.post("/register", function(request, response) {
   );
 });
 
-//Auth login
-server.post(
-  "/login",
-  passport.authenticate("local", { successRedirect: "", failureRedirect: "" }),
-  function(request, response) {
-    if (response.user) {
-      response.send(true);
+// Auth login
+server.post("/login", function(request, response) {
+  passport.authenticate("local", function(err, user, info) {
+    if (err) {
+      return console.log(err);
     }
+    if (!user) {
+      return response.send(false);
+    }
+    request.logIn(user, function(err) {
+      if (err) {
+        return console.log(err);
+      }
+      isLoggedIn(request, response);
+      return response.send(true);
+    });
+  })(request, response);
+});
+
+//Auth logout
+server.get("/logout", function(request, response) {
+  request.logout();
+  response.send(true);
+});
+
+//Auth isLoggedIn
+function isLoggedIn(request, response) {
+  if (request.isAuthenticated()) {
+    return console.log("authenticated");
+  } else {
+    return console.log("not authenticated");
   }
-);
+}
 
 //Database routes
 const dbFetch = require("./routes/db/fetch.js");

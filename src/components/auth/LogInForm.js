@@ -3,16 +3,12 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import querystring from 'querystring';
 import './css/LogInForm.css';
-//login test
-import fakeAuth from '../apiMockup/fakeAuth.js';
 import { Redirect } from 'react-router-dom';
 
 class LogInForm extends React.Component {
   state = {
     userName: '',
-    passWord: '',
-    //login test
-    redirectToReferrer: false
+    passWord: ''
   };
 
   handleUserNameChange = event => {
@@ -35,10 +31,10 @@ class LogInForm extends React.Component {
         })
       )
       .then(function(response) {
-        props.history.push('/newentry');
+        props.history.push('/elmo/diary');
       })
       .catch(function(error) {
-        console.log('error');
+        console.log(error);
       });
   };
 

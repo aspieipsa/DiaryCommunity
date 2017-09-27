@@ -1,8 +1,21 @@
 let express = require("express"),
-  router = express.Router(),  
+  router = express.Router(),
   User = require("../../models/User"),
   Entry = require("../../models/Entry"),
   Comment = require("../../models/Comment");
+
+//Auth isLoggedIn
+function isLoggedIn(request, response, next) {
+  console.log(request);
+  if (request.isAuthenticated()) {
+    console.log("logged in");
+    return next();
+  }
+  console.log("not logged in");
+  return (function() {
+    response.send(false);
+  })();
+}
 
 //Finds a given user.
 router.get("/users/:userURL", (request, response) => {
@@ -16,7 +29,8 @@ router.get("/users/:userURL", (request, response) => {
 });
 
 //Find all entries of a given user.
-router.get("/entries/:userURL", (request, response) => {
+router.get("/entries/:userURL", isLoggedIn, (request, response) => {
+  console.log("get entries");
   User.findOne(
     { customURL: request.params.userURL },
     { entryIDs: 1 },

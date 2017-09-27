@@ -5,30 +5,43 @@ import EntryOptions from './EntryOptions.js';
 
 class EntryList extends React.Component {
   state = {
-    entries: []
+    entries: [],
+    isLoggedIn: false
   };
 
   componentDidMount() {
+    console.log('Mounted');
     fetch(this.props.fetchRoute + this.props.userURL)
       .then(res => res.json())
-      .then(entries => this.setState({ entries }));
+      .then(promiseValue => {
+        if (promiseValue === false) {
+          this.setState({ isLoggedIn: false });
+        } else {
+          this.setState({ entries: promiseValue });
+        }
+      });
   }
 
   render() {
-    return (
-      <div className="col-md-10">
-        {this.state.entries.map(entry => (
-          <div key={entry._id}>
-            <Entry
-              author={entry.author}
-              title={entry.title}
-              body={entry.body}
-            />
-            <EntryOptions userURL={this.props.userURL} entryID={entry._id} />
-          </div>
-        ))}
-      </div>
-    );
+    let contentToDisplay = <h1>Not logged in!</h1>;
+
+    if (this.state.isLoggedIn)
+      contentToDisplay = (
+        <div className="col-md-10">
+          {this.state.entries.map(entry => (
+            <div key={entry._id}>
+              <Entry
+                author={entry.author}
+                title={entry.title}
+                body={entry.body}
+              />
+              <EntryOptions userURL={this.props.userURL} entryID={entry._id} />
+            </div>
+          ))}
+        </div>
+      );
+
+    return contentToDisplay;
   }
 }
 
