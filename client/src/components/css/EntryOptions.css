@@ -1,0 +1,9 @@
+.entry-options--option-list {
+  list-style: none;
+  padding: 0;
+}
+
+.entry-options--option {
+  display: inline-block;
+  margin-right: 15px;
+}
