@@ -1,21 +1,16 @@
-// @flow
-
-import React from 'react';
+import React from "react";
 //import { render } from "react-dom";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import type { Match } from 'react-router-dom';
-import EntryList from './components/EntryList.js';
-import EntryPage from './EntryPage.js';
-import LogInForm from './components/auth/LogInForm.js';
-import RegistrationForm from './components/auth/RegistrationForm.js';
-import FeedPage from './FeedPage.js';
-import NewEntry from './NewEntry.js';
-import UserProfile from './UserProfile.js';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import type { Match } from "react-router-dom";
+import EntryList from "./components/EntryList.js";
+import EntryPage from "./EntryPage.js";
+import LogInForm from "./components/auth/LogInForm.js";
+import RegistrationForm from "./components/auth/RegistrationForm.js";
+import FeedPage from "./FeedPage.js";
+import NewEntry from "./NewEntry.js";
+import UserProfile from "./UserProfile.js";
 //HTTP requests
-import Request from 'react-http-request';
-//temp
-//import preload from "./data.json";
-import api from './components/apiMockup/api';
+import Request from "react-http-request";
 
 const FourOhFour = () => <h1>404</h1>;
 
@@ -52,7 +47,7 @@ const Router = () => (
           component={(props: { match: Match }) => {
             return (
               <UserProfile
-                fetchRoute={'/dbfetch/users/'}
+                fetchRoute={"/dbfetch/users/"}
                 userURL={props.match.params.userURL}
                 {...props}
               />
@@ -65,7 +60,7 @@ const Router = () => (
           component={(props: { match: Match }) => {
             return (
               <FeedPage
-                fetchRoute={'/dbfetch/entries/'}
+                fetchRoute={"/dbfetch/entries/"}
                 userURL={props.match.params.userURL}
                 {...props}
               />
@@ -78,7 +73,7 @@ const Router = () => (
           component={(props: { match: Match }) => {
             return (
               <EntryPage
-                fetchRoute={'/dbfetch/singleEntry/'}
+                fetchRoute={"/dbfetch/singleEntry/"}
                 userURL={props.match.params.userURL}
                 entryID={props.match.params.entryID}
                 {...props}
@@ -93,7 +88,7 @@ const Router = () => (
           component={(props: { match: Match }) => {
             return (
               <FeedPage
-                fetchRoute={'/dbfetch/entries/'}
+                fetchRoute={"/dbfetch/entries/"}
                 userURL={props.match.params.userURL}
                 {...props}
               />

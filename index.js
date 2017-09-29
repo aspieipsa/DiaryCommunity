@@ -28,5 +28,5 @@ require("./routes/db/fetch.js");
 
 //The server needs to listen to requests...
 server.listen(PORT, "127.0.0.1", function() {
-  console.log("DiaryCommunity server running");
+  console.log(`DiaryCommunity server running at port ${PORT}`);
 });
