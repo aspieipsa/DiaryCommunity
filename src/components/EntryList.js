@@ -11,6 +11,7 @@ class EntryList extends React.Component {
 
   componentDidMount() {
     console.log('Mounted');
+    console.log(this.props.location.state.detail);
     fetch(this.props.fetchRoute + this.props.userURL)
       .then(res => res.json())
       .then(promiseValue => {

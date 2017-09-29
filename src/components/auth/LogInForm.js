@@ -31,7 +31,10 @@ class LogInForm extends React.Component {
         })
       )
       .then(function(response) {
-        props.history.push('/elmo/diary');
+        props.history.push({
+          pathname: '/elmo/diary'
+          //state: { detail: response.data }
+        });
       })
       .catch(function(error) {
         console.log(error);

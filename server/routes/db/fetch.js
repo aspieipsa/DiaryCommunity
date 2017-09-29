@@ -6,7 +6,6 @@ let express = require("express"),
 
 //Auth isLoggedIn
 function isLoggedIn(request, response, next) {
-  console.log(request);
   if (request.isAuthenticated()) {
     console.log("logged in");
     return next();
