@@ -1,15 +1,17 @@
+DiaryCommunity client. 
+
 Scaffolded with react-create-app.
 [Read manual here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#syntax-highlighting-in-the-editor)
 
 ## Install dependenciues
-Use yarn insteam of npm. It's good for you and the environment.
+Use npm 5+.
 
-`yarn install`
+`npm install`
 
-You also need to have react-create-app installed in your system for this project to work (most likely). 
+You also need to have react-create-app installed in your system for this project to work (most likely, didn't try without). 
 
 ## Run
-`yarn start`
+`npm run start`
 
 This should start the server and open the project in the browser.
 
