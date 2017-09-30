@@ -1,24 +1,31 @@
+import "materialize-css/dist/css/materialize.min.css";
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../actions";
 
-const Header = () => <h2>Header</h2>;
-const Dashboard = () => <h2>Dashboard</h2>;
-const SurveyNew = () => <h2>SurveyNew</h2>;
+import Header from "./Header";
+const MainPage = () => <h2>Main page</h2>;
+const Profile = () => <h2>Profile</h2>;
 const Landing = () => <h2>Landing</h2>;
 
-const App = () => {
-  return (
-    <div>
+class App extends React.Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+
+  render() {
+    return (
       <BrowserRouter>
-        <div>
+        <div className="container">
           <Header />
           <Route exact path="/" component={Landing} />
-          <Route exact path="/surveys" component={Dashboard} />
-          <Route path="/surveys/new" component={SurveyNew} />
+          <Route exact path="/main" component={MainPage} />
+          <Route path="/:user/profile" component={Profile} />
         </div>
       </BrowserRouter>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default App;
+export default connect(null, actions)(App);

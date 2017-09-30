@@ -11,16 +11,22 @@
     "precommit": "lint-staged",
     "flow": "flow"
   },
-  "proxy": "http://localhost:27016",
+  "proxy": {
+    "/api/*": {
+      "target": "http://localhost:27016"
+    }
+  },
   "dependencies": {
     "axios": "^0.16.2",
+    "materialize-css": "^0.100.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-http-request": "^1.0.3",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.10",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

@@ -23,12 +23,12 @@ module.exports = server => {
   });
 
   server.post("/api/login", passport.authenticate("local"), (req, res) => {
-    res.send({ message: "welcome!" });
+    res.redirect("/main");
   });
 
   server.get("/api/logout", (req, res) => {
     req.logout();
-    res.send({ status: "ok" });
+    res.redirect("/");
   });
 
   server.get("/api/current_user", (req, res) => {
