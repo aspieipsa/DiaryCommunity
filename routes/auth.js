@@ -16,18 +16,20 @@ module.exports = server => {
           return next(err.message);
         }
         passport.authenticate("local")(req, res, function() {
-          res.send({ message: "welcome!" });
+          res.redirect("/");
         });
       }
     );
   });
 
   server.post("/api/login", passport.authenticate("local"), (req, res) => {
-    res.redirect("/main");
+    //console.log(req);
+    res.redirect("/");
   });
 
   server.get("/api/logout", (req, res) => {
     req.logout();
+    //res.send();
     res.redirect("/");
   });
 

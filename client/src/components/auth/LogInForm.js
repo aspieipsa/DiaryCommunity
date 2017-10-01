@@ -1,14 +1,12 @@
-import React from 'react';
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import querystring from 'querystring';
-import './css/LogInForm.css';
-import { Redirect } from 'react-router-dom';
+import React from "react";
+import axios from "axios";
+import querystring from "querystring";
+import "./css/LogInForm.css";
 
-class LogInForm extends React.Component {
+class LoginForm extends React.Component {
   state = {
-    userName: '',
-    passWord: ''
+    userName: "",
+    passWord: ""
   };
 
   handleUserNameChange = event => {
@@ -23,18 +21,12 @@ class LogInForm extends React.Component {
     let props = this.props;
     event.preventDefault();
     axios
-      .post(
-        '/login',
-        querystring.stringify({
-          username: event.target.username.value,
-          password: event.target.password.value
-        })
-      )
+      .post("/api/login", {
+        username: event.target.username.value,
+        password: event.target.password.value
+      })
       .then(function(response) {
-        props.history.push({
-          pathname: '/elmo/diary'
-          //state: { detail: response.data }
-        });
+        props.history.push("/main");
       })
       .catch(function(error) {
         console.log(error);
@@ -71,7 +63,7 @@ class LogInForm extends React.Component {
             Log in
           </button>
           <p>
-            Don't have an account? <a href="">Register</a>
+            Don't have an account? <a href="/register">Register</a>
           </p>
         </form>
       </section>
@@ -79,4 +71,4 @@ class LogInForm extends React.Component {
   }
 }
 
-export default withRouter(LogInForm);
+export default LoginForm;

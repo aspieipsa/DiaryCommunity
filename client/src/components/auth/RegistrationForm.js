@@ -1,20 +1,20 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import axios from 'axios';
-import querystring from 'querystring';
-import './css/RegistrationForm.css';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import axios from "axios";
+import querystring from "querystring";
+import "./css/RegistrationForm.css";
 
 class RegistrationForm extends React.Component {
   state = {
-    userName: '',
-    email: '',
-    passWord: '',
-    confirmPassWord: '',
-    customURL: ''
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    customURL: ""
   };
 
   handleUserNameChange = event => {
-    this.setState({ userName: event.target.value });
+    this.setState({ username: event.target.value });
   };
 
   handleEmailChange = event => {
@@ -22,11 +22,11 @@ class RegistrationForm extends React.Component {
   };
 
   handlePassWordChange = event => {
-    this.setState({ passWord: event.target.value });
+    this.setState({ password: event.target.value });
   };
 
   handleConfirmPassWordChange = event => {
-    this.setState({ confirmPassWord: event.target.value });
+    this.setState({ confirmPassword: event.target.value });
   };
 
   handleCustomURLChange = event => {
@@ -34,18 +34,20 @@ class RegistrationForm extends React.Component {
   };
 
   handleOnSubmit = event => {
-    let props = this.props;
     event.preventDefault();
+
+    let props = this.props;
+    let newUser = {
+      username: this.state.username,
+      email: this.state.username,
+      url: this.state.customURL,
+      password: this.state.password
+    };
+
     axios
-      .post(
-        '/register',
-        querystring.stringify({
-          username: event.target.username.value,
-          password: event.target.password.value
-        })
-      )
+      .post("/api/register", newUser)
       .then(function(response) {
-        props.history.push('/newentry');
+        props.history.push("/main");
       })
       .catch(function(error) {
         console.log(error);
