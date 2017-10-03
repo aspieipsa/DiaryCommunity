@@ -2,9 +2,11 @@
 
 /* 
 
-/api/user GET - get user info by params (probably, by ID or customURL)
+/api/user GET - get user info by params (probably, by ID or customURL or username)
 
 /api/user PUT - update existing user
+
+/api/user DELETE - delete existing user
 
 maybe: 
 

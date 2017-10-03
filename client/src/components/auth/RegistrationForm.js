@@ -32,7 +32,7 @@ class RegistrationForm extends React.Component {
     this.setState({ email: event.target.value });
   };
   validateEmail = event => {
-    let errors = validate.validateUsername(event.target.value);
+    let errors = validate.validateEmail(event.target.value);
     if (errors.length) {
       let errState = Object.assign({}, this.state.errors);
       errState.email = errors.join("; ");

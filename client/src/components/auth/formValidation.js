@@ -21,7 +21,7 @@ export function validateEmail() {
   // rules for checking all the things
   // if error, return what was wrong
 
-  return [];
+  return ["error"];
 }
 
 export function validateUrl(customURL) {
