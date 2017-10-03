@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 class Header extends React.Component {
   renderContent() {
+    console.log("Auth:", this.props.auth);
     switch (this.props.auth) {
       case null:
         return null;
@@ -21,7 +22,6 @@ class Header extends React.Component {
           </ul>
         );
       default:
-        console.log(this.props.auth);
         return (
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>

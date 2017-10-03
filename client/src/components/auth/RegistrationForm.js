@@ -40,7 +40,7 @@ class RegistrationForm extends React.Component {
     let newUser = {
       username: this.state.username,
       email: this.state.username,
-      url: this.state.customURL,
+      customURL: this.state.customURL,
       password: this.state.password
     };
 

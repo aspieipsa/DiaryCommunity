@@ -4,18 +4,6 @@ let express = require("express"),
   Entry = require("../../models/Entry"),
   Comment = require("../../models/Comment");
 
-//Auth isLoggedIn
-function isLoggedIn(request, response, next) {
-  if (request.isAuthenticated()) {
-    console.log("logged in");
-    return next();
-  }
-  console.log("not logged in");
-  return (function() {
-    response.send(false);
-  })();
-}
-
 //Finds a given user.
 router.get("/users/:userURL", (request, response) => {
   User.findOne({ customURL: request.params.userURL }, (err, user) => {
@@ -28,7 +16,7 @@ router.get("/users/:userURL", (request, response) => {
 });
 
 //Find all entries of a given user.
-router.get("/entries/:userURL", isLoggedIn, (request, response) => {
+router.get("/entries/:userURL", (request, response) => {
   console.log("get entries");
   User.findOne(
     { customURL: request.params.userURL },
