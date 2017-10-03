@@ -1,8 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-import querystring from "querystring";
 import "./css/RegistrationForm.css";
+import * as validate from "./formValidation";
 
 class RegistrationForm extends React.Component {
   state = {
@@ -10,15 +10,36 @@ class RegistrationForm extends React.Component {
     email: "",
     password: "",
     confirmPassword: "",
-    customURL: ""
+    customURL: "",
+    errors: {}
   };
 
   handleUserNameChange = event => {
     this.setState({ username: event.target.value });
   };
+  validateUsername = event => {
+    let errors = validate.validateUsername(event.target.value);
+    if (errors.length) {
+      let errState = Object.assign({}, this.state.errors);
+      errState.username = errors.join("; ");
+      this.setState({
+        errors: errState
+      });
+    }
+  };
 
   handleEmailChange = event => {
     this.setState({ email: event.target.value });
+  };
+  validateEmail = event => {
+    let errors = validate.validateUsername(event.target.value);
+    if (errors.length) {
+      let errState = Object.assign({}, this.state.errors);
+      errState.email = errors.join("; ");
+      this.setState({
+        errors: errState
+      });
+    }
   };
 
   handlePassWordChange = event => {
@@ -33,25 +54,34 @@ class RegistrationForm extends React.Component {
     this.setState({ customURL: event.target.value });
   };
 
-  handleOnSubmit = event => {
+  handleOnSubmit = async event => {
     event.preventDefault();
 
-    let props = this.props;
     let newUser = {
       username: this.state.username,
       email: this.state.username,
       customURL: this.state.customURL,
       password: this.state.password
     };
+    // run checks
+    const errors = await validate.validateAll(newUser);
+    console.log("errors", errors);
+    if (errors.length) {
+      this.setState({ errors });
+    } else {
+      let props = this.props;
 
-    axios
-      .post("/api/register", newUser)
-      .then(function(response) {
-        props.history.push("/main");
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+      axios
+        .post("/api/register", newUser)
+        .then(function(response) {
+          console.log("got it!");
+          props.history.push("/main");
+        })
+        .catch(function(error) {
+          console.log(error);
+          alert("Oops, something went wrong.");
+        });
+    }
   };
 
   render() {
@@ -67,9 +97,30 @@ class RegistrationForm extends React.Component {
               name="username"
               className="registration--input"
               type="text"
-              onChange={this.handleUserNameChange}
+              onChange={this.handleUsernameChange}
+              onBlur={this.validateUsername}
             />
           </div>
+
+          {/* Example of using materializecss inputs with error messages */}
+          <div className="input-field">
+            <input
+              id="email"
+              type="email"
+              className={this.state.errors.email ? "invalid" : ""}
+              name="email"
+              onChange={this.handleEmailChange}
+              onBlur={this.validateEmail}
+            />
+            <label
+              htmlFor="email"
+              data-error={this.state.errors.email}
+              className="active"
+            >
+              Email
+            </label>
+          </div>
+
           <div>
             <label className="registration--label" htmlFor="email">
               Email:
@@ -89,7 +140,7 @@ class RegistrationForm extends React.Component {
               name="password"
               className="registration--input"
               type="password"
-              onChange={this.handlePassWordChange}
+              onChange={this.handlePasswordChange}
             />
           </div>
           <div>
@@ -100,7 +151,7 @@ class RegistrationForm extends React.Component {
               name="confirm-password"
               className="registration--input"
               type="password"
-              onChange={this.handleConfirmPassWordChange}
+              onChange={this.handleConfirmPasswordChange}
             />
           </div>
           <div>

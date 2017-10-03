@@ -1,32 +1,27 @@
-const passport = require("passport"),
-  User = require("../models/User.js");
-validateUser = require("./userValidation.js");
+const passport = require("passport");
+const User = require("../models/User.js");
 
 module.exports = server => {
   server.post("/api/register", function(req, res, next) {
-    let userIsValidated = validateUser(req.body);
-    if (userIsValidated === true) {
-      console.log("Validated");
-      /*User.register(
-        new User({
-          username: req.body.username,
-          url: req.body.url,
-          email: req.body.email
-        }),
-        req.body.password,
-        function(err) {
-          if (err) {
-            console.log("error while user register!", err);
-            return next(err.message);
-          }
-          passport.authenticate("local")(req, res, function() {
-            res.redirect("/");
-          });
+    // TODO: validate
+
+    User.register(
+      new User({
+        username: req.body.username,
+        url: req.body.url,
+        email: req.body.email
+      }),
+      req.body.password,
+      function(err) {
+        if (err) {
+          console.log("error while user register!", err);
+          return next(err.message);
         }
-      ); */
-    } else {
-      console.log(userIsValidated);
-    }
+        passport.authenticate("local")(req, res, function() {
+          res.redirect("/");
+        });
+      }
+    );
   });
 
   server.post("/api/login", passport.authenticate("local"), (req, res) => {
