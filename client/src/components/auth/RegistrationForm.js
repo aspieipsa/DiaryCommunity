@@ -14,18 +14,17 @@ class RegistrationForm extends React.Component {
     errors: {}
   };
 
-  handleUserNameChange = event => {
+  handleUsernameChange = event => {
     this.setState({ username: event.target.value });
   };
+
   validateUsername = event => {
     let errors = validate.validateUsername(event.target.value);
-    if (errors.length) {
-      let errState = Object.assign({}, this.state.errors);
-      errState.username = errors.join("; ");
-      this.setState({
-        errors: errState
-      });
-    }
+    let errState = Object.assign({}, this.state.errors);
+    errState.username = errors.join("; ");
+    this.setState({
+      errors: errState
+    });
   };
 
   handleEmailChange = event => {
@@ -33,21 +32,38 @@ class RegistrationForm extends React.Component {
   };
   validateEmail = event => {
     let errors = validate.validateEmail(event.target.value);
-    if (errors.length) {
-      let errState = Object.assign({}, this.state.errors);
-      errState.email = errors.join("; ");
-      this.setState({
-        errors: errState
-      });
-    }
+    let errState = Object.assign({}, this.state.errors);
+    errState.email = errors.join("; ");
+    this.setState({
+      errors: errState
+    });
   };
 
-  handlePassWordChange = event => {
+  handlePasswordChange = event => {
     this.setState({ password: event.target.value });
   };
 
-  handleConfirmPassWordChange = event => {
+  validatePassword = event => {
+    let errors = validate.validatePassword(event.target.value);
+    let errState = Object.assign({}, this.state.errors);
+    errState.password = errors.join("; ");
+    this.setState({
+      errors: errState
+    });
+  };
+
+  handleConfirmPasswordChange = event => {
     this.setState({ confirmPassword: event.target.value });
+  };
+
+  validateConfirmPassword = event => {
+    let password = document.getElementById("password").value;
+    let errors = validate.validateConfirmPassword(password, event.target.value);
+    let errState = Object.assign({}, this.state.errors);
+    errState.confirmPassword = errors;
+    this.setState({
+      errors: errState
+    });
   };
 
   handleCustomURLChange = event => {
@@ -89,71 +105,86 @@ class RegistrationForm extends React.Component {
       <section className="registration--section">
         <h1>Register</h1>
         <form className="registration--form" onSubmit={this.handleOnSubmit}>
-          <div>
-            <label className="registration--label" htmlFor="username">
-              Username:
-            </label>
-            <input
-              name="username"
-              className="registration--input"
-              type="text"
-              onChange={this.handleUsernameChange}
-              onBlur={this.validateUsername}
-            />
+          <div className="row">
+            <div className="input-field">
+              <input
+                id="username"
+                type="text"
+                className={this.state.errors.username ? "invalid" : ""}
+                name="username"
+                onChange={this.handleUsernameChange}
+                onBlur={this.validateUsername}
+              />
+              <label
+                htmlFor="username"
+                data-error={this.state.errors.username}
+                className="active"
+              >
+                Username
+              </label>
+            </div>
           </div>
 
-          {/* Example of using materializecss inputs with error messages */}
-          <div className="input-field">
-            <input
-              id="email"
-              type="email"
-              className={this.state.errors.email ? "invalid" : ""}
-              name="email"
-              onChange={this.handleEmailChange}
-              onBlur={this.validateEmail}
-            />
-            <label
-              htmlFor="email"
-              data-error={this.state.errors.email}
-              className="active"
-            >
-              Email
-            </label>
+          <div className="row">
+            <div className="input-field">
+              <input
+                id="email"
+                type="email"
+                className={this.state.errors.email ? "invalid" : ""}
+                name="email"
+                onChange={this.handleEmailChange}
+                onBlur={this.validateEmail}
+              />
+              <label
+                htmlFor="email"
+                data-error={this.state.errors.email}
+                className="active"
+              >
+                Email
+              </label>
+            </div>
           </div>
 
-          <div>
-            <label className="registration--label" htmlFor="email">
-              Email:
-            </label>
-            <input
-              name="email"
-              className="registration--input"
-              type="text"
-              onChange={this.handleEmailChange}
-            />
+          <div className="row">
+            <div className="input-field">
+              <input
+                id="password"
+                type="password"
+                className={this.state.errors.password ? "invalid" : ""}
+                name="password"
+                onChange={this.handlePasswordChange}
+                onBlur={this.validatePassword}
+              />
+              <label
+                htmlFor="password"
+                data-error={this.state.errors.password}
+                className="active"
+              >
+                Password
+              </label>
+            </div>
           </div>
-          <div>
-            <label className="registration--label" htmlFor="password">
-              Password:
-            </label>
-            <input
-              name="password"
-              className="registration--input"
-              type="password"
-              onChange={this.handlePasswordChange}
-            />
+
+          <div className="row">
+            <div className="input-field">
+              <input
+                id="confirm-password"
+                type="password"
+                className={this.state.errors.confirmPassword ? "invalid" : ""}
+                name="confirm-password"
+                onChange={this.handleConfirmPasswordChange}
+                onBlur={this.validateConfirmPassword}
+              />
+              <label
+                htmlFor="confirm-password"
+                data-error={this.state.errors.confirmPassword}
+                className="active"
+              >
+                Confirm password
+              </label>
+            </div>
           </div>
-          <div>
-            <label className="registration--label" htmlFor="confirm-password">
-              Confirm password:
-            </label>
-            <input
-              name="confirm-password"
-              className="registration--input"
-              type="password"
-              onChange={this.handleConfirmPasswordChange}
-            />
-          </div>
+
           <div>
             <label className="registration--label" htmlFor="custom-url">
               Custom URL:
