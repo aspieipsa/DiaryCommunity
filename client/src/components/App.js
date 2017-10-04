@@ -11,6 +11,8 @@ import Diary from "./diary";
 const MainPage = () => <h2>Main page</h2>;
 const Profile = () => <h2>Profile</h2>;
 const Landing = () => <h2>Landing</h2>;
+const EntryPage = () => <h2>Entry</h2>;
+const EntryEdit = () => <h2>Entry</h2>;
 
 class App extends React.Component {
   componentDidMount() {
@@ -26,10 +28,13 @@ class App extends React.Component {
           <Route exact path="/main" component={MainPage} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path="/register" component={RegistrationForm} />
-
           {/*TODO: if we have routes like this, we need to make sure it is impossible to register with user urls like "main", "login", etc.*/}
-          <Route path="/:user/profile" component={Profile} />
-          <Route path="/:user/diary" component={Diary} />
+          <Route path="/:customURL/profile" component={Profile} />
+          <Route path="/:customURL/diary" component={Diary} />
+          {/* This has to be userURL specific, because a user can add an entry to a community, not just their own diary */}
+          {/* we can use the same route for new and edit */}
+          <Route path="/:customURL/entry/edit" component={EntryEdit} />
+          <Route path="/:customURL/entry/:id" component={EntryPage} />
         </div>
       </BrowserRouter>
     );

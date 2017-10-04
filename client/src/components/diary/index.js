@@ -1,12 +1,8 @@
 import React from "react";
+import EntryList from "./entryList";
 
 export default class Diary extends React.Component {
-  componentDidMount() {
-    //fetch data
-  }
-
   render() {
-    console.log("Hello");
-    return <h1>Hallou</h1>;
+    return <EntryList />;
   }
 }
