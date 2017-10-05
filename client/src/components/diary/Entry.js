@@ -5,12 +5,10 @@ import "./css/Entry.css";
 const Entry = props => {
   return (
     <section className="entry--entry">
-      <div className="row">
-        <div className="entry--meta">{props.author}</div>
-        <div className="entry--body">
-          <h2>{props.title}</h2>
-          {props.body}
-        </div>
+      <div className="entry--meta">{props.author}</div>
+      <div className="entry--body">
+        <h2>{props.title}</h2>
+        {props.body}
       </div>
     </section>
   );

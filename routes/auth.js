@@ -8,7 +8,7 @@ module.exports = server => {
     User.register(
       new User({
         username: req.body.username,
-        url: req.body.url,
+        customURL: req.body.customURL,
         email: req.body.email
       }),
       req.body.password,

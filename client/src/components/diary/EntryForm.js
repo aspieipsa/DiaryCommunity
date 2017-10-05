@@ -1,13 +1,7 @@
-import React from 'react';
-import './css/EntryForm.css';
+import React from "react";
+import "./css/EntryForm.css";
 
 class EntryForm extends React.Component {
-  state = {
-    entryAuthor: 'Simoroshka',
-    entryTitle: '',
-    entryBody: ''
-  };
-
   handleInputOnChange = event => {
     this.setState({ entryTitle: event.target.value });
   };

@@ -1,22 +1,23 @@
 import React from "react";
 import axios from "axios";
 //import querystring from "querystring";
-import "./css/LogInForm.css";
+import "./css/LoginForm.css";
 
 class LoginForm extends React.Component {
   state = {
-    userName: "",
-    passWord: ""
+    username: "",
+    password: ""
   };
 
-  handleUserNameChange = event => {
-    this.setState({ userName: event.target.value });
+  handleUsernameChange = event => {
+    this.setState({ username: event.target.value });
   };
 
-  handlePassWordChange = event => {
-    this.setState({ passWord: event.target.value });
+  handlePasswordChange = event => {
+    this.setState({ password: event.target.value });
   };
 
+  // TODO: rewrite to use redux ???
   handleOnSubmit = event => {
     let props = this.props;
     event.preventDefault();
@@ -43,14 +44,14 @@ class LoginForm extends React.Component {
             name="username"
             className="log-in--input"
             type="text"
-            onChange={this.handleUserNameChange}
+            onChange={this.handleUsernameChange}
           />
           <label htmlFor="password">Password:</label>
           <input
             name="password"
             className="log-in--input"
             type="password"
-            onChange={this.handlePassWordChange}
+            onChange={this.handlePasswordChange}
           />
           <a className="log-in--forgot-password" href="">
             I forgot my password
