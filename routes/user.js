@@ -1,8 +1,34 @@
 /* routes for manipulating users */
+const User = require("../models/User.js");
 
-/* 
+module.exports = server => {
+  //Get user's favorites
+  server.get("/api/user/favorites/:customURL", (req, res) => {
+    User.find({ customURL: req.params.customURL }, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ favoriteIDs: result[0].favoriteIDs });
+      }
+    });
+  });
 
-/api/user GET - get user info by params (probably, by ID or customURL or username)
+  //Get user by searchField
+  server.get("/api/user/:searchField/:searchValue", (req, res) => {
+    User.find(
+      { [req.params.searchField]: req.params.searchValue },
+      (err, user) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(user);
+        }
+      }
+    );
+  });
+};
+
+/*
 
 /api/user PUT - update existing user
 

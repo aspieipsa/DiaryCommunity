@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchEntries } from "../actions";
+import { fetchEntries } from "../../actions";
 import _ from "lodash";
 import Entry from "./Entry.js";
 /*

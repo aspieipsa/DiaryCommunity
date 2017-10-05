@@ -1,21 +1,23 @@
 import validator from "validator";
+import axios from "axios";
 
 export async function isUsernameUnique(username) {
-  // call GET "/api/user/" and see if it finds a user with this name
-
-  return true;
+  try {
+    let res = await axios.get(`/api/user/username/${username}`);
+    if (res.data.length > 0) return false;
+    return true;
+  } catch (err) {}
 }
 
-export async function isUrlUnique(customURL) {
-  // call GET "/api/user/" and see if it finds a user with this customURL
-
-  return true;
+export async function isCustomURLUnique(customURL) {
+  try {
+    let res = await axios.get(`/api/user/customURL/${customURL}`);
+    if (res.data.length > 0) return false;
+    return true;
+  } catch (err) {}
 }
 
 export function validateUsername(username) {
-  // rules for checking all the things
-  // if error, return what was wrong
-
   let errors = [];
 
   const MIN_LENGTH = 1;
@@ -52,7 +54,8 @@ export function validateUsername(username) {
 
   const LATIN = /[a-z]/gi;
   const CYRILLICS = /[а-я]/gi;
-  const INVALID = /[^a-zа-я0-9\-_~!@#$&*()+?=/\|\\.,;:<>\[\]]/gi;
+  //The final space before the closing ] is IMPORTANT! LEAVE IT THERE.
+  const INVALID = /[^a-zа-я0-9\-_~!@#$&*()+?=/\|\\.,;:<>\[\] ]/gi;
 
   let hasLatin = LATIN.test(username);
   let hasCyrillics = CYRILLICS.test(username);
@@ -70,8 +73,6 @@ export function validateUsername(username) {
 }
 
 export function validateEmail(email) {
-  // rules for checking all the things
-  // if error, return what was wrong
   const INVALID_EMAIL = "The email address you provided appears to be invalid.";
   const NO_EMAIL = "You must provide an email address.";
   let errors = [];
@@ -84,7 +85,7 @@ export function validateEmail(email) {
   return errors;
 }
 
-export function validateUrl(customURL) {
+export function validateCustomURL(customURL) {
   const MIN_LENGTH = 1;
   const MAX_LENGTH = 50;
   const INVALID = /[^a-z\-]/gi;
@@ -156,15 +157,15 @@ export async function validateAll(regData) {
   errors.concat(validatePassword(regData.password));
   errors.concat(validateUsername(regData.username));
   errors.concat(validateEmail(regData.email));
-  errors.concat(validateUrl(regData.customURL));
+  errors.concat(validateCustomURL(regData.customURL));
 
   console.log("errors", errors);
   if (!errors.length) {
     if (!await isUsernameUnique(regData.username)) {
       errors.push("Username already taken :( ");
     }
-    if (!await isUrlUnique(regData.url)) {
-      errors.push("Url already taken :( ");
+    if (!await isCustomURLUnique(regData.customURL)) {
+      errors.push("URL already taken :( ");
     }
   }
 

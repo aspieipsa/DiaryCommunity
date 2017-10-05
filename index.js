@@ -24,7 +24,12 @@ server.use(passport.initialize());
 server.use(passport.session());
 
 //Routes
+
+//Auth
 require("./routes/auth.js")(server);
+//User manipulation
+require("./routes/user.js")(server);
+
 //require("./routes/db/fetch.js");
 
 // Register routes - another way

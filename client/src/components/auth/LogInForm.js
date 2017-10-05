@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import querystring from "querystring";
+//import querystring from "querystring";
 import "./css/LogInForm.css";
 
 class LoginForm extends React.Component {
