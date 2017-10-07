@@ -25,7 +25,7 @@ class Header extends React.Component {
         return (
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <a href={`/${this.props.auth.customURL}/diary`}>My Diary</a>
+              <a href={`/${this.props.auth.uri}/diary`}>My Diary</a>
             </li>
             <li>
               <a href="/api/logout">Logout</a>

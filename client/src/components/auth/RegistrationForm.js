@@ -10,7 +10,7 @@ class RegistrationForm extends React.Component {
     email: "",
     password: "",
     confirmPassword: "",
-    customURL: "",
+    uri: "",
     errors: {}
   };
 
@@ -66,14 +66,14 @@ class RegistrationForm extends React.Component {
     });
   };
 
-  handleCustomURLChange = event => {
+  handleUriChange = event => {
     this.setState({ customURL: event.target.value });
   };
 
-  validateCustomURL = event => {
-    let errors = validate.validateCustomURL(event.target.value);
+  validateUri = event => {
+    let errors = validate.validateUri(event.target.value);
     let errState = Object.assign({}, this.state.errors);
-    if (errors.length) errState.customURL = errors;
+    if (errors.length) errState.uri = errors;
     this.setState({
       errors: errState
     });
@@ -85,7 +85,7 @@ class RegistrationForm extends React.Component {
     let newUser = {
       username: this.state.username,
       email: this.state.email,
-      customURL: this.state.customURL,
+      uri: this.state.uri,
       password: this.state.password
     };
     // run checks
@@ -198,19 +198,19 @@ class RegistrationForm extends React.Component {
           <div className="row">
             <div className="input-field">
               <input
-                id="customURL"
+                id="uri"
                 type="text"
-                className={this.state.errors.customURL ? "invalid" : ""}
-                name="customURL"
-                onChange={this.handleCustomURLChange}
-                onBlur={this.validateCustomURL}
+                className={this.state.errors.uri ? "invalid" : ""}
+                name="uri"
+                onChange={this.handleUriChange}
+                onBlur={this.validateUri}
               />
               <label
-                htmlFor="customURL"
-                data-error={this.state.errors.customURL}
+                htmlFor="uri"
+                data-error={this.state.errors.uri}
                 className="active"
               >
-                Custom URL
+                Custom URI
               </label>
             </div>
           </div>

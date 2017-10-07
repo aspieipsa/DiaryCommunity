@@ -12,9 +12,9 @@ export const authenticateUser = (username, password) => async dispatch => {
   dispatch({ type: AUTHENTICATE_USER, payload: res.data });
 };
 
-export const fetchEntries = url => async dispatch => {
+export const fetchEntries = uri => async dispatch => {
   let res = await axios.get("/api/entry/list", {
-    params: { customURL: url }
+    params: { uri }
   });
   dispatch({ type: FETCH_POSTS, payload: res.data });
 };

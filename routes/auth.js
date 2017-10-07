@@ -8,7 +8,7 @@ module.exports = server => {
     User.register(
       new User({
         username: req.body.username,
-        customURL: req.body.customURL,
+        uri: req.body.uri,
         email: req.body.email
       }),
       req.body.password,
@@ -18,24 +18,23 @@ module.exports = server => {
           return next(err.message);
         }
         passport.authenticate("local")(req, res, function() {
-          res.redirect("/");
+          res.status(200).send({ status: "ok" });
         });
       }
     );
   });
 
+  // passport will return 401 if login fails
   server.post("/api/login", passport.authenticate("local"), (req, res) => {
-    //console.log(req);
-    res.redirect("/");
+    res.status(200).send({ status: "ok" });
   });
 
   server.get("/api/logout", (req, res) => {
     req.logout();
-    //res.send();
-    res.redirect("/");
+    res.status(200).send({ status: "ok" });
   });
 
   server.get("/api/current_user", (req, res) => {
-    res.send(req.user);
+    res.status(200).send(req.user);
   });
 };

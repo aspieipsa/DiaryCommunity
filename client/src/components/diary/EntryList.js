@@ -8,7 +8,7 @@ import EntryOptions from './EntryOptions.js';*/
 
 class EntryList extends React.Component {
   componentDidMount() {
-    this.props.fetchEntries(this.props.customURL);
+    this.props.fetchEntries(this.props.uri);
   }
 
   renderEntries() {

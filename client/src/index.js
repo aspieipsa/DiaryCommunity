@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import reduxThunk from "redux-thunk";
-import App from "./components/App";
+import Router from "./components/Router";
 import reducers from "./reducers";
 
 // use for performance profiling:
@@ -15,16 +15,16 @@ const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router />
   </Provider>,
   document.querySelector("#root")
 );
 
 if (module.hot) {
-  module.hot.accept("./components/App", () => {
+  module.hot.accept("./components/Router", () => {
     ReactDOM.render(
       <Provider store={store}>
-        <App />
+        <Router />
       </Provider>,
       document.querySelector("#root")
     );

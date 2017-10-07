@@ -3,15 +3,16 @@ import axios from "axios";
 
 export async function isUsernameUnique(username) {
   try {
-    let res = await axios.get(`/api/user/username/${username}`);
+    let res = await axios.get(`/api/user/exists?username=${username}`);
+    console.log(res);
     if (res.data.length > 0) return false;
     return true;
   } catch (err) {}
 }
 
-export async function isCustomURLUnique(customURL) {
+export async function isUriUnique(uri) {
   try {
-    let res = await axios.get(`/api/user/customURL/${customURL}`);
+    let res = await axios.get(`/api/user/exists?uri=${uri}`);
     if (res.data.length > 0) return false;
     return true;
   } catch (err) {}
@@ -85,29 +86,29 @@ export function validateEmail(email) {
   return errors;
 }
 
-export function validateCustomURL(customURL) {
+export function validateUri(uri) {
   const MIN_LENGTH = 1;
   const MAX_LENGTH = 50;
   const INVALID = /[^a-z\-]/gi;
 
-  const IS_MANDATORY = "You must provide a custom URL.";
+  const IS_MANDATORY = "You must provide a custom URI.";
   const INVALID_LENGTH =
-    "Your custom URL must be between 1 and 50 characters long.";
+    "Your custom URI must be between 1 and 50 characters long.";
   const INVALID_CHARACTERS =
-    "Your custom URL may contain only Latin characters and dashes (-).";
+    "Your custom URI may contain only Latin characters and dashes (-).";
 
   let errors = [];
 
   //Length
-  if (customURL.length === 0) {
+  if (uri.length === 0) {
     errors.push(IS_MANDATORY);
     return errors;
-  } else if (customURL.length < MIN_LENGTH || customURL.length > MAX_LENGTH) {
+  } else if (uri.length < MIN_LENGTH || uri.length > MAX_LENGTH) {
     errors.push(INVALID_LENGTH);
   }
 
   //Invalid characters
-  if (INVALID.test(customURL)) errors.push(INVALID_CHARACTERS);
+  if (INVALID.test(uri)) errors.push(INVALID_CHARACTERS);
 
   return errors;
 }
@@ -157,15 +158,15 @@ export async function validateAll(regData) {
   errors.concat(validatePassword(regData.password));
   errors.concat(validateUsername(regData.username));
   errors.concat(validateEmail(regData.email));
-  errors.concat(validateCustomURL(regData.customURL));
+  errors.concat(validateUri(regData.uri));
 
   console.log("errors", errors);
   if (!errors.length) {
     if (!await isUsernameUnique(regData.username)) {
       errors.push("Username already taken :( ");
     }
-    if (!await isCustomURLUnique(regData.customURL)) {
-      errors.push("URL already taken :( ");
+    if (!await isUriUnique(regData.uri)) {
+      errors.push("URI already taken :( ");
     }
   }
 
