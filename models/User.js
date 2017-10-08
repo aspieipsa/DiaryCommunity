@@ -1,7 +1,9 @@
-const mongoose = require("mongoose");
-const passportLocalMongoose = require("passport-local-mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
+import mongoose from 'mongoose';
+import passportLocalMongoose from 'passport-local-mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 const ObjectId = mongoose.Schema.Types.ObjectId;
+
+import UserFavorite from './UserFavorite';
 
 const userSchema = new mongoose.Schema(
   {
@@ -10,31 +12,29 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "can't be blank"],
       unique: true,
-      index: true
+      index: true,
     },
     password: String,
     uri: {
       type: String,
       lowercase: true,
       required: [true, "can't be blank"],
-      match: [/^[a-zA-Z0-9]+/, "is invalid"],
+      match: [/^[a-zA-Z0-9]+/, 'is invalid'],
       unique: true,
-      index: true
+      index: true,
     },
     email: {
       type: String,
       lowercase: true,
       required: [true, "can't be blank"],
-      match: [/\S+@\S+\.\S+/, "is invalid"]
+      match: [/\S+@\S+\.\S+/, 'is invalid'],
     },
     info: String,
-    entryIDs: [ObjectId],
-    commentIDs: [ObjectId],
-    favoriteIDs: [ObjectId]
+    favorites: [UserFavorite],
   },
   { timestamps: true }
 );
 
 userSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model('User', userSchema);

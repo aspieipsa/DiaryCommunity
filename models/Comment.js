@@ -1,10 +1,15 @@
-let mongoose = require("mongoose"),
-  ObjectId = mongoose.Schema.Types.ObjectId,
-  commentSchema = new mongoose.Schema({
-    //_id: ObjectId,
-    entryID: ObjectId,
-    authorID: ObjectId,
-    body: String
-  });
+import mongoose from 'mongoose';
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
-module.exports = mongoose.model("Comment", commentSchema);
+const commentSchema = new mongoose.Schema(
+  {
+    //_id: ObjectId,
+    _authorID: { type: ObjectId, ref: 'User' },
+    _entryID: { type: ObjectId, ref: 'Entry' },
+    title: String,
+    body: String,
+  },
+  { timestamps: true }
+);
+
+export default mongoose.model('Comment', commentSchema);
