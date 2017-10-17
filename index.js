@@ -9,9 +9,8 @@ const PORT = process.env.PORT || 27016;
 const isProduction = process.env.NODE_ENV === 'production';
 
 import User from './models/User.js';
-import Entry from './models/Entry.js';
-import Comment from './models/Comment.js';
 import Identity from './models/Identity.js';
+import Entry from './models/Entry.js';
 
 const server = express();
 

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 const ObjectId = mongoose.Schema.Types.ObjectId;
+import DiarySchema from './DiarySchema';
 
 const IdentitySchema = new mongoose.Schema(
   {

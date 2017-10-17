@@ -3,11 +3,10 @@ import requireLogin from '../middlewares/requireLogin';
 import mongoose from 'mongoose';
 let Entry = mongoose.model('Entry');
 let Identity = mongoose.model('Identity');
-let Comment = mongoose.model('Comment');
 
 export default function(server) {
   // POST /api/entry/:id/comments - add a comment
-  server.post(
+  /*  server.post(
     '/api/entry/:eid/comments',
     requireLogin,
     // 1) get the diary for that uri
@@ -99,5 +98,5 @@ export default function(server) {
         res.status(404).send({ message: 'Entry was not found' });
       }
     });
-  });
+  });*/
 }

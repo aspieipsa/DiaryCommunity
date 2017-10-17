@@ -23,7 +23,7 @@ UserSchema.plugin(uniqueValidator, { message: 'is already taken.' });
 UserSchema.plugin(passportLocalMongoose, {
   usernameField: 'email',
   findByUsername: (model, queryParameters) => {
-    return model.findOne(queryParameters, 'email identities').populate('identities', 'name uri');
+    return model.findOne(queryParameters, 'email identities currentId').populate('identities', 'name uri');
   },
 });
 
