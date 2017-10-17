@@ -1,15 +1,20 @@
 import mongoose from 'mongoose';
 const ObjectId = mongoose.Schema.Types.ObjectId;
+import AuthorSchema from './AuthorSchema';
+import CommentSchema from './CoommentSchema';
 
-const entrySchema = new mongoose.Schema(
+const EntrySchema = new mongoose.Schema(
   {
     //_id: ObjectId,
-    _authorID: { type: ObjectId, ref: 'User' },
+    d_id { type: ObjectId, ref: 'Identity', index: true },  // where the entry is. Use this for queries!
+    d_uri: String,           // use it for pretty links on frontend, not lookups
+    author: [AuthorSchema],  // this is also for frontend display, not lookups
     title: String,
     body: String,
-    commentIDs: [ObjectId],
+    comments: [CommentSchema],  // one can have hell of a ton comments for 16 MB, so this is gonna be fine for the time being
+    c_count: Number,            // maintain this to avoid retrieving the whole array when you don't need it
   },
   { timestamps: true }
 );
 
-export default mongoose.model('Entry', entrySchema);
+mongoose.model('Entry', EntrySchema);
