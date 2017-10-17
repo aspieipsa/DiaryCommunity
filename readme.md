@@ -1,4 +1,4 @@
-DiaryCommunity server. 
+Dybr! Aka gHeBHuKu.mao aka bbl
 
 ### Development setup
 
