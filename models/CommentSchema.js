@@ -8,7 +8,7 @@ import AuthorSchema from './AuthorSchema';
 const CommentSchema = new mongoose.Schema(
   {
     //_id: ObjectId,
-    author: [AuthorSchema],
+    author: AuthorSchema,
     body: String,
   },
   { timestamps: true }
@@ -20,16 +20,17 @@ document's pre('save') but after the top-level document's pre('validate') middle
 This is because validating before save() is actually a piece of built-in middleware.
 */
 
+/*
 CommentSchema.pre('save', function(next, done) {
-  console.log('PRE SAVE');
-  let authorID = req.user.identities[0]._id;
+  // does not work, req is not defined here
+  let authorID = req.user.currentID;
   if (!this.canEdit(authorID)) {
     var err = new Error('Editing time ended');
     next(err);
   } else {
     next();
   }
-});
+});*/
 
 CommentSchema.pre('remove', function(next) {
   if (!this.canDelete(req.user.identities[0]._id)) {

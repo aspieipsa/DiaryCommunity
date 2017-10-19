@@ -4,77 +4,41 @@ import mongoose from 'mongoose';
 let Entry = mongoose.model('Entry');
 let Identity = mongoose.model('Identity');
 
+// TODO: fix after model refactoring
+
 export default function(server) {
-  // POST /api/entry/:id/comments - add a comment
-  /*  server.post(
-    '/api/entry/:eid/comments',
-    requireLogin,
-    // 1) get the diary for that uri
-    // 2) create an entry record
-    // 3) add the entry to the diary
-    async (req, res) => {
-      const { body } = req.body;
-      const { eid, id } = req.params;
+  // POST /api/entry/:eid/comments - add a comment
+  server.post('/api/entry/:eid/comments', requireLogin, async (req, res) => {
+    const { body } = req.body;
+    const { eid } = req.params;
 
-      let entry = await Entry.findById(eid).select('comments');
+    let comment = {
+      author: {
+        authorID: req.user.current.id,
+        name: req.user.current.name,
+        uri: req.user.current.uri,
+      },
+      body,
+    };
 
-      let comment = new Comment({
-        author: req.user.identities[0]._id,
-        body,
-      });
-
-      comment.save(err => {
-        if (err) res.status(422).send(err);
-
-        entry.comments.push(comment);
-        entry.save(async err => {
-          if (err) {
-            comment.remove();
-            res.status(422).send(err);
-          }
-          res.json({ entry });
-        });
-      });
-    }
-  );
-
-  // GET /api/entries/:uri - get entry list for this diary
-  server.get('/api/entries/:uri', (req, res) => {
-    Identity.findOne({ uri: req.params.uri })
-      .select('diary')
-      .populate({
-        path: 'diary.entries',
-        select: 'title body createdAt comments author',
-        populate: { path: 'author', select: 'uri name' },
-        options: { limit: 5 },
-        sort: '-createdAt',
-      })
-      .limit(5)
-      .sort('-createdAt')
-      .exec((err, result) => {
-        if (err) {
-          res.json({ error: 'Something went wrong' });
-        } else {
-          console.log(result);
-          let entries = result.diary.entries.map(e => ({
-            _id: e.id,
-            title: e.title,
-            body: e.body,
-            createdAt: e.createdAt,
-            author: e.author,
-            comments: e.comments.length,
-          }));
-          res.json({ entries });
-        }
-      });
+    Entry.findByIdAndUpdate(eid, { $push: { comments: comment }, $inc: { c_count: 1 } }, { new: true }, (err, entry) => {
+      if (err) res.next(err);
+      res.json({ comment });
+    });
   });
+
+  // TODO
 
   // PATCH /api/entry/:eid/comment/:id - update comment
   server.patch('/api/entry/:eid/comment/:id', requireLogin, (req, res) => {
-    let update = {
-      body: req.body.body,
-    };
-
+    // TODO: check you can do this
+    Entry.find({ _id: req.params.eid, 'comments._id': req.params.id }, { 'comments.$': 1 })
+      .select('d_uri')
+      .then(entry => {
+        console.log(entry.comments);
+        res.json({ entry });
+      });
+    /*
     Entry.findOneAndUpdate({ _id: req.params.id }, update, { new: true }, (err, entry) => {
       if (err) res.status(422).send(err);
       if (entry) {
@@ -82,12 +46,12 @@ export default function(server) {
       } else {
         res.status(404).json({ message: 'Entry was not found' });
       }
-    });
+    });*/
   });
 
-  // DELETE /api/entry/:id - delete entry
-  server.delete('/api/entry/:id', requireLogin, async (req, res) => {
-    Entry.findOneAndRemove({ _id: req.params.id }, (err, entry) => {
+  // DELETE /api/entry/:eid/comment/:id - delete comment
+  server.delete('/api/entry/:eid/comment/:id', requireLogin, async (req, res) => {
+    Entry.findById(req.params.eid, (err, entry) => {
       if (entry) {
         let response = {
           message: 'Entry with comments successfully deleted',
@@ -98,5 +62,5 @@ export default function(server) {
         res.status(404).send({ message: 'Entry was not found' });
       }
     });
-  });*/
+  });
 }

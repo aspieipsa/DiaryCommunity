@@ -5,7 +5,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const AuthorSchema = new mongoose.Schema({
   //_id: ObjectId,
-  id: { type: ObjectId, ref: 'Identity' },
+  authorID: { type: ObjectId, ref: 'Identity' },
   name: String,
   uri: String, // assumes that all identity uris, old and new, are stored in an array on the identity. Indexes fine. Old comments and entries will have old uris but it will work the same.
   signature: String,

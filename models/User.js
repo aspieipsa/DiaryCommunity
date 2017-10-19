@@ -15,15 +15,28 @@ const UserSchema = new mongoose.Schema(
       match: [/\S+@\S+\.\S+/, 'is invalid'],
     },
     identities: [{ type: ObjectId, ref: 'Identity' }],
-    currentId: { type: Number, default: 0 }, // current identity index
+    currentID: ObjectId, // current identity
+    current: Object,
   },
   { timestamps: true }
 );
+
+UserSchema.post('findOne', doc => {
+  let current = doc.identities.find(i => doc.currentID.toString() === i._id.toString());
+  doc.current = {
+    uri: current.uri[current.uri.length - 1],
+    name: current.name,
+    _id: doc.currentID,
+  };
+
+  return doc;
+});
+
 UserSchema.plugin(uniqueValidator, { message: 'is already taken.' });
 UserSchema.plugin(passportLocalMongoose, {
   usernameField: 'email',
   findByUsername: (model, queryParameters) => {
-    return model.findOne(queryParameters, 'email identities currentId').populate('identities', 'name uri');
+    return model.findOne(queryParameters, 'email identities currentID').populate('identities', 'name uri');
   },
 });
 

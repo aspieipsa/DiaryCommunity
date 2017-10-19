@@ -9,7 +9,7 @@ export default function(server) {
   server.get('/api/user/identity', requireLogin, (req, res) => {
     if (!req.user.identities) res.send({ error: 'Invalid params' });
 
-    Identity.findById(req.user.identities[0].id).exec((err, identity) => {
+    Identity.findById(req.user.currentId).exec((err, identity) => {
       if (err) res.send({ error: 'Something went wrong' });
       res.send({ identity });
     });
@@ -22,28 +22,35 @@ export default function(server) {
 
   // PATCH /api/user/identity - update current identity data
   server.patch('/api/user/identity', requireLogin, (req, res) => {
-    let update = {};
     if (req.body.new_name) {
-      update.name = req.body.new_name;
+      Identity.findOneAndUpdate({ _id: req.user.currentId }, { name: req.body.new_name }, { new: true, upsert: true }, (err, identity) => {
+        if (err) res.next(err);
+        res.json({ identity });
+      });
     }
     if (req.body.new_uri) {
-      update.uri = req.body.new_uri;
+      Identity.findById(req.user.currentId, 'uri', (err, identity) => {
+        if (identity.uri[identity.uri.length - 1] === req.body.new_uri) res.json({ error: 'same stuff as current' });
+        else {
+          Identity.findOneAndUpdate({ _id: req.user.currentId }, { $push: { uri: req.body.new_uri } }, { new: true }, (err, identity) => {
+            if (err) res.next(err);
+            res.json({ identity });
+          });
+        }
+      });
+    } else {
+      res.json({ error: 'invalid params' });
     }
-    // TODO generalize for all available settings, move outside of here
-    Identity.findOneAndUpdate({ id: req.user.identities[0].id }, { update }).exec((err, identity) => {
-      if (err) res.send({ error: 'Something went wrong' });
-      res.send({ identity });
-    });
   });
 
-  // POST /api/user/identities - add a new person
+  // POST /api/user/identities - add a new identity
   server.post('/api/user/identities', requireLogin, (req, res) => {
     res.send({ error: 'the endpoint is not yet functional' });
   });
 
-  // GET /api/user/identities - get all persons for the current user
+  // GET /api/user/identities - get all identities for the current user
   server.get('/api/user/identities', requireLogin, (req, res) => {
-    User.findById(req.user.id, 'id identities')
+    User.findById(req.user._id, '_id identities')
       .populate('identities')
       .exec((err, user) => {
         if (err) res.send({ error: 'Something went wrong' });
@@ -66,7 +73,7 @@ export default function(server) {
 
   // change password (in the future also email)
   server.patch('/api/user', (req, res, next) => {
-    User.findById(req.user.id)
+    User.findById(req.user._id)
       .then(user => {
         if (!user) {
           return res.sendStatus(404);
@@ -77,63 +84,4 @@ export default function(server) {
       })
       .catch(next);
   });
-
-  /*
-  server.get('/api/user/list', (req, res) => {
-    User.find({})
-      .limit(10)
-      .sort('-username')
-      .exec((err, result) => {
-        if (err) {
-          res.send({ error: 'Something went wrong' });
-        } else {
-          res.send({ result });
-        }
-      });
-  });
-
-  server.patch('/api/user', requireLogin, (req, res) => {
-    let update = {};
-    if (req.body.new_en) {
-      update.username = req.body.new_username;
-    }
-    if (req.body.new_uri) {
-      update.uri = req.body.new_uri;
-    }
-    if (req.body.new_email) {
-      update.email = req.body.new_email;
-    }
-
-    User.findOneAndUpdate({ uri: req.body.uri }, update, (err, user) => {
-      if (user) {
-        let response = {
-          message: 'User successfully updated',
-          id: user._id,
-        };
-        res.status(200).send(response);
-      } else {
-        let response = {
-          message: 'User was not found',
-        };
-        res.status(404).send(response);
-      }
-    });
-  });
-
-  server.delete('/api/user', requireLogin, (req, res) => {
-    User.findOneAndRemove({ uri: req.body.uri }, (err, user) => {
-      if (user) {
-        let response = {
-          message: 'User successfully deleted',
-          id: user._id,
-        };
-        res.status(200).send(response);
-      } else {
-        let response = {
-          message: 'User was not found',
-        };
-        res.status(404).send(response);
-      }
-    });
-  });*/
 }

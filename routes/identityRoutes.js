@@ -16,7 +16,7 @@ export default function(server) {
     Identity.find({})
       .select('uri name diary createdAt diary.title')
       .exec((err, identities) => {
-        if (err) res.send({ error: 'Something went wrong' });
+        if (err) res.send(err);
         res.send({ identities });
       });
   });
@@ -29,14 +29,13 @@ export default function(server) {
     } else if (req.query.name) {
       query = { name: req.query.name };
     } else if (req.query.id) {
-      query = { id: req.query.id };
+      query = { _id: req.query.id };
     }
 
     if (query) {
       Identity.count(query, (err, result) => {
         if (err) {
-          console.log(err);
-          res.send({ error: 'Something went wrong' });
+          res.send(err);
         } else {
           res.send({ result: result > 0 });
         }

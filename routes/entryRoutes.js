@@ -17,55 +17,42 @@ export default function(server) {
       const { uri } = req.params;
 
       // this is where the post is saved (does not have to be current identity - case of posting to community)
-      let identity = await Identity.findOne({ uri }).select('diary');
+      let diaryIdentity = await Identity.findOne({ uri }).select('_id');
+      let currentIdentity = req.user.identities.find(a => a._id.toString() === req.user.currentID.toString());
 
-      let entry = new Entry({
-        author: req.user.identities[0]._id,
-        title,
-        body,
-      });
-
-      entry.save(err => {
-        if (err) res.status(422).send(err);
-
-        identity.diary.entries.push(entry);
-        identity.save(err => {
-          if (err) {
-            entry.remove();
-            res.status(422).send(err);
-          }
-          res.json({ entry });
+      if (diaryIdentity.identityCanAddEntries(req.user.currentID)) {
+        let entry = new Entry({
+          d_uri: uri,
+          d_id: diaryIdentity._id,
+          author: {
+            authorID: req.user.currentID,
+            name: currentIdentity.name,
+            uri: req.user.currentUri,
+          },
+          title,
+          body,
         });
-      });
+
+        entry.save(err => {
+          if (err) res.status(422).send(err);
+          else res.json({ entry });
+        });
+      } else {
+        res.status(403).send({ error: 'Not allowed to post here' });
+      }
     }
   );
 
   // GET /api/entries/:uri - get entry list for this diary
   server.get('/api/entries/:uri', (req, res) => {
-    Identity.findOne({ uri: req.params.uri })
-      .select('diary')
-      .populate({
-        path: 'diary.entries',
-        select: 'title body createdAt comments author',
-        populate: { path: 'author', select: 'uri name' },
-        options: { limit: 5 },
-        sort: '-createdAt',
-      })
+    Entry.find({ d_uri: req.params.uri })
+      .select('-comments')
       .limit(5)
       .sort('-createdAt')
-      .exec((err, result) => {
+      .exec((err, entries) => {
         if (err) {
-          res.json({ error: 'Something went wrong' });
+          res.send(err);
         } else {
-          console.log(result);
-          let entries = result.diary.entries.map(e => ({
-            _id: e.id,
-            title: e.title,
-            body: e.body,
-            createdAt: e.createdAt,
-            author: e.author,
-            comments: e.comments.length,
-          }));
           res.json({ entries });
         }
       });
@@ -73,21 +60,13 @@ export default function(server) {
 
   // GET /api/entry/:id - get an entry with comments
   server.get('/api/entry/:id', (req, res, next) => {
-    Entry.findById(req.params.id)
-      .populate({
-        path: 'comments',
-        select: 'author body createdAt',
-        options: { limit: 5 },
-        sort: 'createdAt',
-        populate: { path: 'author', select: 'name uri signature' },
-      })
-      .exec((err, entry) => {
-        if (err) {
-          next(err);
-        } else {
-          res.json({ entry });
-        }
-      });
+    Entry.findById(req.params.id).exec((err, entry) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json({ entry });
+      }
+    });
   });
 
   // PATCH /api/entry/:id - update entry
@@ -97,10 +76,18 @@ export default function(server) {
       body: req.body.body,
     };
 
-    Entry.findOneAndUpdate({ _id: req.params.id }, update, { new: true }, (err, entry) => {
-      if (err) res.status(422).send(err);
-      if (entry) {
-        res.status(200).json({ entry });
+    Entry.findById(req.params.id, (err, entry) => {
+      if (err) res.status(423).send(err);
+      else if (entry) {
+        if (entry.identityCanEditEntries(req.user.currentID)) {
+          entry.title = req.body.title;
+          entry.body = req.body.body;
+          entry.save((err, updated) => {
+            console.log('ERROR', err);
+            if (err) res.status(422).send(err);
+            res.status(200).json({ entry: updated });
+          });
+        }
       } else {
         res.status(404).json({ message: 'Entry was not found' });
       }
@@ -109,15 +96,18 @@ export default function(server) {
 
   // DELETE /api/entry/:id - delete entry
   server.delete('/api/entry/:id', requireLogin, async (req, res) => {
-    Entry.findOneAndRemove({ _id: req.params.id }, (err, entry) => {
-      if (entry) {
-        let response = {
-          message: 'Entry with comments successfully deleted',
-          id: entry._id,
-        };
-        res.status(200).send(response);
+    Entry.findById(req.params.id, (err, entry) => {
+      if (err) res.status(423).send(err);
+      else if (entry) {
+        if (entry.identityCanEditEntries(req.user.currentID)) {
+          entry.remove(err => {
+            console.log(err);
+            if (err) res.status(422).send(err);
+            res.status(200).json({ message: 'Entry with comments successfully deleted' });
+          });
+        }
       } else {
-        res.status(404).send({ message: 'Entry was not found' });
+        res.status(404).json({ message: 'Entry was not found' });
       }
     });
   });

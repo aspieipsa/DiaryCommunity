@@ -10,6 +10,7 @@ const IdentitySchema = new mongoose.Schema(
       type: String,
       required: [true, "can't be blank"],
       unique: true,
+      index: true,
     },
     // array of all uris ever taken
     uri: [
@@ -25,7 +26,7 @@ const IdentitySchema = new mongoose.Schema(
     info: String,
     image: String,
     signature: String,
-    diary: [DiarySchema],
+    diary: DiarySchema,
     favorites: [{ type: ObjectId, ref: 'Identity' }],
     readers: [{ type: ObjectId, ref: 'Identity' }],
   },
@@ -34,16 +35,13 @@ const IdentitySchema = new mongoose.Schema(
 
 IdentitySchema.plugin(uniqueValidator, { message: 'is already taken.' });
 
-/*
-IdentitySchema.methods.toProfileJSONFor = function(user) {
-  return {
-    name: this.name,
-    info: this.info,
-    signature: this.signature,
-    //image: this.image || null,
-    following: false,
-  };
+IdentitySchema.methods.identityCanAddEntries = function(identityID) {
+  if (this.community) {
+    if (this.community.open || this.community.members.find(m => m.toString() === identityID.toString())) return true;
+  } else {
+    if (this._id.toString() === identityID.toString()) return true;
+  }
+  return false;
 };
-*/
 
 mongoose.model('Identity', IdentitySchema);
