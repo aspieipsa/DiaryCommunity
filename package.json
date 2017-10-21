@@ -24,7 +24,7 @@
     "transformIgnorePatterns": ["/node_modules/", "/client/"]
   },
   "scripts": {
-    "start": "babel-node index.js",
+    "start": "./node_modules/.bin/babel-node index.js",
     "server": "nodemon --exec babel-node -- index.js",
     "client": "npm run start --prefix client",
     "coverage": "jest --coverage",
