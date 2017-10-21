@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import passport from 'passport';
 import errorhandler from 'errorhandler';
 import keys from './config/keys';
-const PORT = process.env.PORT || 27016;
 const isProduction = process.env.NODE_ENV === 'production';
 
 import User from './models/User.js';
@@ -33,9 +32,10 @@ server.use(passport.session());
 
 mongoose.Promise = Promise;
 if (isProduction) {
-  mongoose.connect(process.env.MONGODB_URI);
+  mongoose.connect(process.env.MONGO_URI);
 } else {
-  mongoose.connect(process.env.MONGODB_URI || keys.mongoURI);
+  console.log('PROCESS ENV', process.env.MONGO_URI);
+  mongoose.connect(process.env.MONGO_URI || keys.mongoURI);
   mongoose.set('debug', true);
 }
 
@@ -89,7 +89,5 @@ server.use(function(err, req, res, next) {
   });
 });
 
-//The server needs to listen to requests...
-server.listen(PORT, '127.0.0.1', function() {
-  console.log(`Dybr server running at port ${PORT}`);
-});
+const PORT = process.env.PORT || 27016;
+server.listen(PORT);
