@@ -22,13 +22,16 @@ const UserSchema = new mongoose.Schema(
 );
 
 UserSchema.post('findOne', doc => {
-  let current = doc.identities.find(i => doc.currentID.toString() === i._id.toString());
-  doc.current = {
-    uri: current.uri[current.uri.length - 1],
-    name: current.name,
-    _id: doc.currentID,
-  };
-
+  if (doc && doc.currentID) {
+    let current = doc.identities.find(i => doc.currentID.toString() === i._id.toString());
+    if (current) {
+      doc.current = {
+        uri: current.uri[current.uri.length - 1],
+        name: current.name,
+        _id: doc.currentID,
+      };
+    }
+  }
   return doc;
 });
 

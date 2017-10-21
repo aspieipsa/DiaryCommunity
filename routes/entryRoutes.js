@@ -20,6 +20,8 @@ export default function(server) {
       let diaryIdentity = await Identity.findOne({ uri }).select('_id');
       let currentIdentity = req.user.identities.find(a => a._id.toString() === req.user.currentID.toString());
 
+      if (!diaryIdentity || !currentIdentity) req.next('Not found!');
+
       if (diaryIdentity.identityCanAddEntries(req.user.currentID)) {
         let entry = new Entry({
           d_uri: uri,

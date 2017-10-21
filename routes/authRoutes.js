@@ -29,9 +29,12 @@ export default function(server) {
           new User({
             email: req.body.email,
             identities: [identity.id],
-            currentId: identity.id,
-            currentUri: req.body.uri,
-            currentName: req.body.name,
+            currentID: identity.id,
+            current: {
+              id: identity.id,
+              uri: req.body.uri,
+              name: req.body.name,
+            },
           }),
           req.body.password,
           err => {

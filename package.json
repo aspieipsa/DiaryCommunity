@@ -10,9 +10,7 @@
   "jest": {
     "testEnvironment": "jest-environment-node",
     "verbose": true,
-    "collectCoverageFrom": [
-      "*.js"
-    ],
+    "collectCoverageFrom": ["*.js"],
     "coverageThreshold": {
       "global": {
         "statements": 50,
@@ -21,22 +19,12 @@
         "lines": 100
       }
     },
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/client/"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/client/"
-    ],
-    "transformIgnorePatterns": [
-      "/node_modules/",
-      "/client/"
-    ]
+    "coveragePathIgnorePatterns": ["/node_modules/", "/client/"],
+    "testPathIgnorePatterns": ["/node_modules/", "/client/"],
+    "transformIgnorePatterns": ["/node_modules/", "/client/"]
   },
   "scripts": {
     "start": "node index.js",
-    "smile": "node utils/smile-download/script.js",
     "server": "nodemon --exec babel-node -- index.js",
     "client": "npm run start --prefix client",
     "coverage": "jest --coverage",

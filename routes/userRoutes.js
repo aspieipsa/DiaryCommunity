@@ -7,10 +7,10 @@ let Identity = mongoose.model('Identity');
 export default function(server) {
   // GET /api/user/identity - get current user identity
   server.get('/api/user/identity', requireLogin, (req, res) => {
-    if (!req.user.identities) res.send({ error: 'Invalid params' });
+    if (!req.user.identities) req.next({ error: 'Invalid params' });
 
     Identity.findById(req.user.currentId).exec((err, identity) => {
-      if (err) res.send({ error: 'Something went wrong' });
+      if (err) req.next({ error: 'Something went wrong' });
       res.send({ identity });
     });
   });
@@ -24,7 +24,7 @@ export default function(server) {
   server.patch('/api/user/identity', requireLogin, (req, res) => {
     if (req.body.new_name) {
       Identity.findOneAndUpdate({ _id: req.user.currentId }, { name: req.body.new_name }, { new: true, upsert: true }, (err, identity) => {
-        if (err) res.next(err);
+        if (err) req.next(err);
         res.json({ identity });
       });
     }

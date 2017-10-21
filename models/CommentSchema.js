@@ -41,16 +41,23 @@ CommentSchema.pre('remove', function(next) {
   }
 });
 
-CommentSchema.methods.canEdit = function(authorID) {
-  if (this.own) return true;
-  if (authorID == this.author && moment().diff(this.createdAt, 'minutes') < 15) return true;
-  return false;
+CommentSchema.methods.canEdit = function(identityID, diaryID) {
+  if (!this.author.authorID) return 'guest comments cannot be edited';
+
+  if (this.author.authorID.toString() !== identityID.toString()) return 'only can edit own comments';
+  // always can edit own comments in own diaries
+  if (this.author.authorID.toString() === diaryID.toString()) return null;
+  // in other diaries can edit own comments for a limited time
+  if (moment().diff(this.createdAt, 'minutes') < Constants.EDIT_COMMENT_LIMIT_MINUTES) return null;
+  return 'Editing time limit expired';
 };
 
-CommentSchema.methods.canDelete = function(authorID) {
-  if (this.own) return true;
-  if (authorID === this.author) return true;
-  return false;
+CommentSchema.methods.canDelete = function(identityID, diaryID) {
+  // can always delete comments in own diary
+  if (identityID === diaryID) return null;
+  // can always delete own comments
+  if (this.author.authorID && this.author.authorID.toString() === identityID.toString()) return null;
+  return 'Not allowed to delete this comment';
 };
 
 export default CommentSchema;
