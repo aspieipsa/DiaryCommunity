@@ -51,20 +51,24 @@ IdentityRoutes(server);
 EntryRoutes(server);
 CommentRoutes(server);
 
+// redirect to client
+if (isProduction) {
+  console.log('production!');
+  // serve static files (like .js and .css)
+  server.use(express.static('client/build'));
+  // if you do not understand the route, redirect to index file
+  server.get('*', (req, res) => {
+    console.log('hello there');
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 // catch 404 and forward to error handler
 server.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
-// redirect to client
-if (isProduction) {
-  server.use(express.static('client/build'));
-  server.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
 
 /// error handlers
 
