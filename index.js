@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import passport from 'passport';
 import errorhandler from 'errorhandler';
 import keys from './config/keys';
+import path from 'path';
 const isProduction = process.env.NODE_ENV === 'production';
 
 import User from './models/User.js';
@@ -15,7 +16,7 @@ const server = express();
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
-server.use(express.static(__dirname + '/public'));
+//server.use(express.static(__dirname + '/public'));
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -34,7 +35,6 @@ mongoose.Promise = Promise;
 if (isProduction) {
   mongoose.connect(process.env.MONGO_URI);
 } else {
-  console.log('PROCESS ENV', process.env.MONGO_URI);
   mongoose.connect(process.env.MONGO_URI || keys.mongoURI);
   mongoose.set('debug', true);
 }
@@ -57,6 +57,14 @@ server.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+// redirect to client
+if (isProduction) {
+  server.use(express.static('client/build'));
+  server.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 /// error handlers
 
