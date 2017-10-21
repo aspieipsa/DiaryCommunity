@@ -35,7 +35,7 @@ mongoose.Promise = Promise;
 if (isProduction) {
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect(keys.mongoURI);
+  mongoose.connect(process.env.MONGODB_URI || keys.mongoURI);
   mongoose.set('debug', true);
 }
 
