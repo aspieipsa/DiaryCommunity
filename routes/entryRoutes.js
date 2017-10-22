@@ -46,7 +46,7 @@ export default function(server) {
   );
 
   // GET /api/entries/:uri - get entry list for this diary
-  server.get('/api/entries/:uri', (req, res) => {
+  server.get('/api/entries/:uri', requireLogin, (req, res) => {
     Entry.find({ d_uri: req.params.uri })
       .select('-comments')
       .limit(5)
@@ -61,7 +61,7 @@ export default function(server) {
   });
 
   // GET /api/entry/:id - get an entry with comments
-  server.get('/api/entry/:id', (req, res, next) => {
+  server.get('/api/entry/:id', requireLogin, (req, res, next) => {
     Entry.findById(req.params.id).exec((err, entry) => {
       if (err) {
         next(err);

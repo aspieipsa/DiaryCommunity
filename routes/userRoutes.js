@@ -72,7 +72,7 @@ export default function(server) {
   });
 
   // change password (in the future also email)
-  server.patch('/api/user', (req, res, next) => {
+  server.patch('/api/user', requireLogin, (req, res, next) => {
     User.findById(req.user._id)
       .then(user => {
         if (!user) {

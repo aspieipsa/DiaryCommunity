@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+//TODO: see if it is needed
 UserSchema.post('findOne', doc => {
   if (doc && doc.currentID) {
     let current = doc.identities.find(i => doc.currentID.toString() === i._id.toString());

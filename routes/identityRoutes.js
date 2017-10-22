@@ -6,7 +6,7 @@ let Entry = mongoose.model('Entry');
 
 export default function(server) {
   // GET /api/identities/:uri - get identity data
-  server.get('/api/identities/:uri', (req, res) => {
+  server.get('/api/identities/:uri', requireLogin, (req, res) => {
     Identity.findOne({ uri: req.params.uri })
       .populate('favorites', 'uri name')
       .populate('readers', 'uri name')
@@ -17,7 +17,7 @@ export default function(server) {
   });
 
   // GET /api/identities - get list of all identities (with search/filter params)
-  server.get('/api/identities', (req, res) => {
+  server.get('/api/identities', requireLogin, (req, res) => {
     // TODO: search and filter params, now returns all
     Identity.find({})
       .select('uri name diary createdAt diary.title')

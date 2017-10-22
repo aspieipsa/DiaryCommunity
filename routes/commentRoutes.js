@@ -8,7 +8,7 @@ let Identity = mongoose.model('Identity');
 // TODO: fix after model refactoring
 
 export default function(server) {
-  server.get('/api/entry/:eid/comments', (req, res) => {
+  server.get('/api/entry/:eid/comments', requireLogin, (req, res) => {
     const limit = parseInt(req.query.limit) || Constants.COMMENTS_PER_PAGE;
     const skip = parseInt(req.query.skip) || 0;
 
