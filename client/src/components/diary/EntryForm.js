@@ -25,11 +25,13 @@ class EntryForm extends React.Component {
   render() {
     return (
       <div className="col s9">
-        <label htmlFor="title">Заголовок</label>
+        <h5>Новая запись</h5>
+        <label htmlFor="title" />
+        <h6>Заголовок</h6>
         <input id="title" className="input-field" type="text" onChange={this.handleInputOnChange} value={this.state.entryTitle} />
+        <h6>Сообщение</h6>
         <div className="input-field">
-          <label htmlFor="textarea">Запись</label>
-          <textarea id="textarea" className="materialize-textarea" onChange={this.handleTextAreaOnChange} value={this.state.entryBody} />
+          <textarea className="materialize-textarea" onChange={this.handleTextAreaOnChange} value={this.state.entryBody} />
         </div>
         <a className="waves-effect waves-light btn" onClick={this.handleOnSubmit}>
           Submit

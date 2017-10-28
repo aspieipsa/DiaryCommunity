@@ -6,7 +6,7 @@ const Entry = props => {
     <div className="card-panel brown lighten-2">
       <div className="entry--meta">{props.author}</div>
       <div className="entry--body">
-        <h2>{props.title}</h2>
+        <h5>{props.title}</h5>
         {props.body}
       </div>
     </div>

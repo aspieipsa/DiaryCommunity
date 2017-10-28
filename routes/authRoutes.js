@@ -46,7 +46,7 @@ export default function(server) {
               return next(err);
             }
             passport.authenticate('local')(req, res, function() {
-              res.status(200).send();
+              res.status(200).redirect('/main');
             });
           }
         );
@@ -61,7 +61,7 @@ export default function(server) {
 
   server.get('/api/logout', (req, res) => {
     req.logout();
-    res.status(200).send();
+    res.status(200).redirect('/');
   });
 
   server.get('/api/current_user', (req, res) => {

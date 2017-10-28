@@ -11,13 +11,13 @@ class Header extends React.Component {
         return (
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <a href="/login">Login</a>
+              <a href="/login">Войти</a>
             </li>
             <li>
-              <a href="/register">Register</a>
+              <a href="/register">Зарегистрироваться</a>
             </li>
             <li>
-              <a href="/main">Explore</a>
+              <a href="/main">Главная</a>
             </li>
           </ul>
         );
@@ -25,10 +25,10 @@ class Header extends React.Component {
         return (
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <a href={`/${this.props.auth.uri}/diary`}>My Diary</a>
+              <a href={`/${this.props.auth.uri}/diary`}>Мой Дневник</a>
             </li>
             <li>
-              <a href="/api/logout">Logout</a>
+              <a href="/api/logout">Выход</a>
             </li>
           </ul>
         );
@@ -38,7 +38,7 @@ class Header extends React.Component {
   render() {
     return (
       <nav>
-        <div className="nav-wrapper">
+        <div className="nav-wrapper" style={{ paddingLeft: '20px' }}>
           <a href="/" className="left brand-logo">
             Дыбр!
           </a>

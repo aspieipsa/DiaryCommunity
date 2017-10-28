@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import promise from 'redux-promise';
 import axios from 'axios';
 
 import Header from './Header';
