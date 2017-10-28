@@ -4,15 +4,13 @@
   "private": true,
   "main": "index.js",
   "engines": {
-    "node": "8.1.1",
-    "npm": "5.0.3"
+    "node": "8.4.0",
+    "npm": "5.5.1"
   },
   "jest": {
     "testEnvironment": "jest-environment-node",
     "verbose": true,
-    "collectCoverageFrom": [
-      "*.js"
-    ],
+    "collectCoverageFrom": ["*.js"],
     "coverageThreshold": {
       "global": {
         "statements": 50,
@@ -21,18 +19,9 @@
         "lines": 100
       }
     },
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/client/"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/client/"
-    ],
-    "transformIgnorePatterns": [
-      "/node_modules/",
-      "/client/"
-    ]
+    "coveragePathIgnorePatterns": ["/node_modules/", "/client/"],
+    "testPathIgnorePatterns": ["/node_modules/", "/client/"],
+    "transformIgnorePatterns": ["/node_modules/", "/client/"]
   },
   "scripts": {
     "start": "./node_modules/.bin/babel-node server.js",
