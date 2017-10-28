@@ -10,7 +10,9 @@
   "jest": {
     "testEnvironment": "jest-environment-node",
     "verbose": true,
-    "collectCoverageFrom": ["*.js"],
+    "collectCoverageFrom": [
+      "*.js"
+    ],
     "coverageThreshold": {
       "global": {
         "statements": 50,
@@ -19,9 +21,18 @@
         "lines": 100
       }
     },
-    "coveragePathIgnorePatterns": ["/node_modules/", "/client/"],
-    "testPathIgnorePatterns": ["/node_modules/", "/client/"],
-    "transformIgnorePatterns": ["/node_modules/", "/client/"]
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/client/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/client/"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/",
+      "/client/"
+    ]
   },
   "scripts": {
     "start": "./node_modules/.bin/babel-node server.js",
@@ -54,6 +65,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.2.1",
+    "redux-promise": "^0.5.3",
     "rsvp": "^4.0.1",
     "validator": "^9.0.0",
     "windows-1251": "^1.0.0"

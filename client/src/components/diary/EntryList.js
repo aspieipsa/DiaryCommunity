@@ -1,8 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
-import { fetchEntries } from "../../actions";
-import _ from "lodash";
-import Entry from "./Entry.js";
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchEntries } from '../../actions';
+import { map } from 'lodash';
+import Entry from './Entry.js';
 /*
 import EntryOptions from './EntryOptions.js';*/
 
@@ -12,18 +12,13 @@ class EntryList extends React.Component {
   }
 
   renderEntries() {
-    return _.map(this.props.entries, entry => (
-      <Entry
-        key={entry.id}
-        title={entry.title}
-        author={entry.author}
-        body={entry.body}
-      />
-    ));
+    if (this.props.entries.length === 0) return <p>No entries</p>;
+    console.log(this.props.entries);
+    return map(this.props.entries, entry => <Entry key={entry._id} title={entry.title} author={entry.author.name} body={entry.body} />);
   }
 
   render() {
-    return <div className="container">{this.renderEntries()}</div>;
+    return <div className="col s8 m9">{this.renderEntries()}</div>;
   }
 }
 

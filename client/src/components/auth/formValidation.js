@@ -131,12 +131,12 @@ export async function validateUri(uri) {
 }
 
 export function validatePassword(password) {
-  const MIN_LENGTH = 8;
+  const MIN_LENGTH = 3;
   const MAX_LENGTH = 50;
   const INVALID = /[^a-zа-я0-9\-_~!@#$&*()+?=/\|\\.,;:<>\[\]]/gi;
 
   const IS_MANDATORY = 'You must provide a password.';
-  const INVALID_LENGTH = 'Your password must be between 8 and 50 characters long.';
+  const INVALID_LENGTH = 'Your password must be between 3 and 50 characters long.';
   const INVALID_CHARACTERS =
     'Your password must be an alphanumeric string with Latin or Cyrillic characters and the following characters: - _ ~ ! @ # $ & * ( ) + ? = / |  . , ; : < > [ ].';
 
