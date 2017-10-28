@@ -34,8 +34,6 @@ export default function(server) {
       query = { uri: req.query.uri };
     } else if (req.query.name) {
       query = { name: req.query.name };
-    } else if (req.query.id) {
-      query = { _id: req.query.id };
     }
 
     if (query) {
@@ -43,7 +41,7 @@ export default function(server) {
         if (err) {
           res.send(err);
         } else {
-          res.send({ result: result > 0 });
+          res.json({ result: result > 0 });
         }
       });
     } else {
@@ -97,7 +95,7 @@ export default function(server) {
   });
 
   // GET /api/identity/:id/favorites - get feed from the diaries this identity follows
-  server.get('/api/identity/:id/favorites', async (req, res) => {
+  server.get('/api/identity/:id/favorites', requireLogin, async (req, res) => {
     let favs = await Identity.findById(req.params.id).select('favorites');
     const limit = parseInt(req.query.limit) || Constants.ENTRIES_PER_PAGE;
     const skip = parseInt(req.query.skip) || 0;

@@ -6,13 +6,16 @@ let Identity = mongoose.model('Identity');
 export default function(server) {
   server.post('/api/register', function(req, res, next) {
     // TODO: validate
+    console.log(req.body);
 
     // check that user does not exist
     User.count({ email: req.body.email }, (err, c) => {
       if (err) {
         return next(err);
       }
-      if (c > 0) return next({ error: 'user email already registered' });
+      if (c > 0) {
+        return next({ error: 'user email already registered' });
+      }
     });
 
     // create an identity first

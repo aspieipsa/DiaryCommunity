@@ -76,15 +76,19 @@ server.use(function(req, res, next) {
 // will print stacktrace
 if (!isProduction) {
   server.use(function(err, req, res, next) {
-    console.log(err.stack);
+    console.log('ERROR', err);
 
     res.status(err.status || 500);
 
+    let message;
+    if (err.errors) {
+      for (let e in err.errors) {
+        message += `${e}: ${err.errors[e].message} `;
+      }
+    }
     res.json({
-      errors: {
-        message: err.message,
-        error: err,
-      },
+      message: err.message || message || err._message,
+      error: err,
     });
   });
 }

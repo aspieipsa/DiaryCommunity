@@ -1,3 +1,3 @@
-test("empty test", () => {
-  console.log("hi");
+test('empty test', () => {
+  //console.log('hi');
 });

@@ -1,41 +1,43 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import axios from "axios";
-import "./css/RegistrationForm.css";
-import * as validate from "./formValidation";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import './css/RegistrationForm.css';
+import * as validate from './formValidation';
 
 class RegistrationForm extends React.Component {
   state = {
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    uri: "",
-    errors: {}
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    uri: '',
+    errors: {},
   };
 
-  handleUsernameChange = event => {
-    this.setState({ username: event.target.value });
+  handleNameChange = event => {
+    this.setState({ name: event.target.value });
   };
 
-  validateUsername = event => {
-    let errors = validate.validateUsername(event.target.value);
+  validateName = async event => {
+    let errors = await validate.validateName(event.target.value);
     let errState = Object.assign({}, this.state.errors);
-    if (errors.length) errState.username = errors.join("; ");
+    if (errors.length) errState.name = errors.join('; ');
+    else errState.name = null;
     this.setState({
-      errors: errState
+      errors: errState,
     });
   };
 
   handleEmailChange = event => {
     this.setState({ email: event.target.value });
   };
-  validateEmail = event => {
-    let errors = validate.validateEmail(event.target.value);
+  validateEmail = async event => {
+    let errors = await validate.validateEmail(event.target.value);
     let errState = Object.assign({}, this.state.errors);
-    if (errors.length) errState.email = errors.join("; ");
+    if (errors.length) errState.email = errors.join('; ');
+    else errState.email = null;
     this.setState({
-      errors: errState
+      errors: errState,
     });
   };
 
@@ -46,9 +48,10 @@ class RegistrationForm extends React.Component {
   validatePassword = event => {
     let errors = validate.validatePassword(event.target.value);
     let errState = Object.assign({}, this.state.errors);
-    if (errors.length) errState.password = errors.join("; ");
+    if (errors.length) errState.password = errors.join('; ');
+    else errState.password = null;
     this.setState({
-      errors: errState
+      errors: errState,
     });
   };
 
@@ -57,25 +60,27 @@ class RegistrationForm extends React.Component {
   };
 
   validateConfirmPassword = event => {
-    let password = document.getElementById("password").value;
+    let password = document.getElementById('password').value;
     let errors = validate.validateConfirmPassword(password, event.target.value);
     let errState = Object.assign({}, this.state.errors);
     if (errors.length) errState.confirmPassword = errors;
+    else errState.confirmPassword = null;
     this.setState({
-      errors: errState
+      errors: errState,
     });
   };
 
   handleUriChange = event => {
-    this.setState({ customURL: event.target.value });
+    this.setState({ uri: event.target.value });
   };
 
-  validateUri = event => {
-    let errors = validate.validateUri(event.target.value);
+  validateUri = async event => {
+    let errors = await validate.validateUri(event.target.value);
     let errState = Object.assign({}, this.state.errors);
     if (errors.length) errState.uri = errors;
+    else errState.uri = null;
     this.setState({
-      errors: errState
+      errors: errState,
     });
   };
 
@@ -83,29 +88,29 @@ class RegistrationForm extends React.Component {
     event.preventDefault();
 
     let newUser = {
-      username: this.state.username,
+      name: this.state.name,
       email: this.state.email,
       uri: this.state.uri,
-      password: this.state.password
+      password: this.state.password,
     };
     // run checks
     const errors = await validate.validateAll(newUser);
 
-    console.log("errors", errors);
+    console.log('errors', errors);
     if (errors.length) {
       this.setState({ errors });
     } else {
       let props = this.props;
 
       axios
-        .post("/api/register", newUser)
+        .post('/api/register', newUser)
         .then(function(response) {
-          console.log("got it!");
-          props.history.push("/main");
+          console.log('got it!');
+          props.history.push('/main');
         })
         .catch(function(error) {
           console.log(error);
-          alert("Oops, something went wrong.");
+          alert('Oops, something went wrong.');
         });
     }
   };
@@ -118,18 +123,14 @@ class RegistrationForm extends React.Component {
           <div className="row">
             <div className="input-field">
               <input
-                id="username"
+                id="name"
                 type="text"
-                className={this.state.errors.username ? "invalid" : ""}
-                name="username"
-                onChange={this.handleUsernameChange}
-                onBlur={this.validateUsername}
+                className={this.state.errors.name ? 'invalid' : ''}
+                name="name"
+                onChange={this.handleNameChange}
+                onBlur={this.validateName}
               />
-              <label
-                htmlFor="username"
-                data-error={this.state.errors.username}
-                className="active"
-              >
+              <label htmlFor="name" data-error={this.state.errors.name} className="active">
                 Username
               </label>
             </div>
@@ -140,16 +141,12 @@ class RegistrationForm extends React.Component {
               <input
                 id="email"
                 type="email"
-                className={this.state.errors.email ? "invalid" : ""}
+                className={this.state.errors.email ? 'invalid' : ''}
                 name="email"
                 onChange={this.handleEmailChange}
                 onBlur={this.validateEmail}
               />
-              <label
-                htmlFor="email"
-                data-error={this.state.errors.email}
-                className="active"
-              >
+              <label htmlFor="email" data-error={this.state.errors.email} className="active">
                 Email
               </label>
             </div>
@@ -160,16 +157,12 @@ class RegistrationForm extends React.Component {
               <input
                 id="password"
                 type="password"
-                className={this.state.errors.password ? "invalid" : ""}
+                className={this.state.errors.password ? 'invalid' : ''}
                 name="password"
                 onChange={this.handlePasswordChange}
                 onBlur={this.validatePassword}
               />
-              <label
-                htmlFor="password"
-                data-error={this.state.errors.password}
-                className="active"
-              >
+              <label htmlFor="password" data-error={this.state.errors.password} className="active">
                 Password
               </label>
             </div>
@@ -180,16 +173,12 @@ class RegistrationForm extends React.Component {
               <input
                 id="confirm-password"
                 type="password"
-                className={this.state.errors.confirmPassword ? "invalid" : ""}
+                className={this.state.errors.confirmPassword ? 'invalid' : ''}
                 name="confirm-password"
                 onChange={this.handleConfirmPasswordChange}
                 onBlur={this.validateConfirmPassword}
               />
-              <label
-                htmlFor="confirm-password"
-                data-error={this.state.errors.confirmPassword}
-                className="active"
-              >
+              <label htmlFor="confirm-password" data-error={this.state.errors.confirmPassword} className="active">
                 Confirm password
               </label>
             </div>
@@ -200,25 +189,17 @@ class RegistrationForm extends React.Component {
               <input
                 id="uri"
                 type="text"
-                className={this.state.errors.uri ? "invalid" : ""}
+                className={this.state.errors.uri ? 'invalid' : ''}
                 name="uri"
                 onChange={this.handleUriChange}
                 onBlur={this.validateUri}
               />
-              <label
-                htmlFor="uri"
-                data-error={this.state.errors.uri}
-                className="active"
-              >
+              <label htmlFor="uri" data-error={this.state.errors.uri} className="active">
                 Custom URI
               </label>
             </div>
           </div>
-          <button
-            id="submit-button"
-            className="registration--submit"
-            type="submit"
-          >
+          <button className="waves-effect waves-light btn" type="submit">
             Register
           </button>
         </form>

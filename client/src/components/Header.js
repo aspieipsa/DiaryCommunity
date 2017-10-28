@@ -1,9 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
 class Header extends React.Component {
   renderContent() {
-    console.log("Auth:", this.props.auth);
+    console.log('Auth:', this.props.auth);
     switch (this.props.auth) {
       case null:
         return null;
@@ -40,7 +40,7 @@ class Header extends React.Component {
       <nav>
         <div className="nav-wrapper">
           <a href="/" className="left brand-logo">
-            Diary Community
+            Дыбр!
           </a>
           {this.renderContent()}
         </div>
