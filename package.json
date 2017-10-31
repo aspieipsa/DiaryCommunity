@@ -10,7 +10,9 @@
   "jest": {
     "testEnvironment": "jest-environment-node",
     "verbose": true,
-    "collectCoverageFrom": ["*.js"],
+    "collectCoverageFrom": [
+      "*.js"
+    ],
     "coverageThreshold": {
       "global": {
         "statements": 50,
@@ -19,9 +21,18 @@
         "lines": 100
       }
     },
-    "coveragePathIgnorePatterns": ["/node_modules/", "/client/"],
-    "testPathIgnorePatterns": ["/node_modules/", "/client/"],
-    "transformIgnorePatterns": ["/node_modules/", "/client/"]
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/client/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/client/"
+    ],
+    "transformIgnorePatterns": [
+      "/node_modules/",
+      "/client/"
+    ]
   },
   "scripts": {
     "start": "./node_modules/.bin/babel-node server.js",
@@ -43,7 +54,7 @@
     "download-file": "^0.1.5",
     "errorhandler": "^1.5.0",
     "express": "^4.15.5",
-    "iconv": "^2.3.0",
+    "iconv-lite": "^0.4.19",
     "jsonfile": "^4.0.0",
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
