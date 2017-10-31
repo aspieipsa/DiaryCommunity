@@ -1,3 +1,7 @@
+test("empty test", () => {
+  console.log("hi");
+});
+
 /*import startServer from '../../server'; // will not work now, need to wrap the server and export the function (not that easy as sounds)
 import mongoose from 'mongoose';
 mongoose.Promise = Promise;
