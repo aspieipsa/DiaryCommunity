@@ -5,6 +5,9 @@ node_js:
 services:
   - mongodb
 
+notifications:
+    slack: dybr:OUYDWWl0ym2pMcgY9MEfoWc0
+
 cache:
   directories:
     - "node_modules"

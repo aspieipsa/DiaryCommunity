@@ -1,4 +1,4 @@
-Diary Community [![Build Status](https://travis-ci.org/Adonai/DiaryCommunity.svg?branch=master)](https://travis-ci.org/Adonai/DiaryCommunity)
+Diary Community [![Build Status](https://travis-ci.org/GoodKitties/DiaryCommunity.svg?branch=master)](https://travis-ci.org/Adonai/DiaryCommunity)
 ================
 
 Проект блог-платформы онлайн-дневников: [ссылка](https://hidden-shelf-73183.herokuapp.com/)
