@@ -46,7 +46,7 @@ export default function(server) {
               return next(err);
             }
             passport.authenticate('local')(req, res, function() {
-              res.status(200).redirect('/main');
+              res.status(200).redirect('/');
             });
           }
         );
@@ -56,7 +56,7 @@ export default function(server) {
 
   // passport will return 401 if login fails
   server.post('/api/login', passport.authenticate('local'), (req, res) => {
-    res.status(200).send();
+    res.status(200).redirect('/');
   });
 
   server.get('/api/logout', (req, res) => {

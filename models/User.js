@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
       match: [/\S+@\S+\.\S+/, 'is invalid'],
     },
     identities: [{ type: ObjectId, ref: 'Identity' }],
-    //currentID: ObjectId, 
+    currentID: ObjectId, 
     current: Object, // current identity
   },
   { timestamps: true }
