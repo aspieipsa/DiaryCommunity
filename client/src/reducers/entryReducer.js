@@ -1,14 +1,16 @@
 import { FETCH_ENTRIES, POST_ENTRY } from '../actions/types';
 import _ from 'lodash';
 
-export default function(state = {}, action) {
-  console.log('action', action);
+export default function(entries = [], action) {
+  console.log('Reducer: action', action);
+  console.log('Reducer: state', entries);
   switch (action.type) {
     case FETCH_ENTRIES:
-      return action.payload.entries || []; //action.payload.entries;
+      return action.payload.entries || entries;
     case POST_ENTRY:
-      return state.entries;
+      if (action.payload.entry) return [action.payload.entry, ...entries];
+      else return entries;
     default:
-      return state;
+      return entries;
   }
 }

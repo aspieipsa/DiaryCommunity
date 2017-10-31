@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link }  from 'react-router-dom';
 
 const Menu = props => {
+  console.log(props);
   return (
     <div className="col s4 m3">
       <div className="card-panel brown">
@@ -9,6 +11,11 @@ const Menu = props => {
           <a className="waves-effect waves-light btn" onClick={props.addEntry}>
             Новая запись
           </a>
+          { props.user &&
+            <Link to={`/${props.user.uri}/entry/edit`} className="waves-effect waves-light btn" >
+              Новая запись
+            </Link>
+          }
         </div>
       </div>
     </div>

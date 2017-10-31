@@ -118,89 +118,78 @@ class RegistrationForm extends React.Component {
   render() {
     return (
       <section className="registration--section">
-        <h1>Register</h1>
         <form className="registration--form" onSubmit={this.handleOnSubmit}>
-          <div className="row">
-            <div className="input-field">
-              <input
-                id="name"
-                type="text"
-                className={this.state.errors.name ? 'invalid' : ''}
-                name="name"
-                onChange={this.handleNameChange}
-                onBlur={this.validateName}
-              />
-              <label htmlFor="name" data-error={this.state.errors.name} className="active">
-                Username
-              </label>
-            </div>
+          <div className="input-field">
+            <input
+              id="email"
+              type="email"
+              className={this.state.errors.email ? 'invalid' : ''}
+              name="email"
+              onChange={this.handleEmailChange}
+              onBlur={this.validateEmail}
+            />
+            <label htmlFor="email" data-error={this.state.errors.email} className="active">
+              Электронная почта
+            </label>
           </div>
 
-          <div className="row">
-            <div className="input-field">
-              <input
-                id="email"
-                type="email"
-                className={this.state.errors.email ? 'invalid' : ''}
-                name="email"
-                onChange={this.handleEmailChange}
-                onBlur={this.validateEmail}
-              />
-              <label htmlFor="email" data-error={this.state.errors.email} className="active">
-                Email
-              </label>
-            </div>
+          <div className="input-field">
+            <input
+              id="password"
+              type="password"
+              className={this.state.errors.password ? 'invalid' : ''}
+              name="password"
+              onChange={this.handlePasswordChange}
+              onBlur={this.validatePassword}
+            />
+            <label htmlFor="password" data-error={this.state.errors.password} className="active">
+              Пароль
+            </label>
           </div>
 
-          <div className="row">
-            <div className="input-field">
-              <input
-                id="password"
-                type="password"
-                className={this.state.errors.password ? 'invalid' : ''}
-                name="password"
-                onChange={this.handlePasswordChange}
-                onBlur={this.validatePassword}
-              />
-              <label htmlFor="password" data-error={this.state.errors.password} className="active">
-                Password
-              </label>
-            </div>
+          <div className="input-field">
+            <input
+              id="confirm-password"
+              type="password"
+              className={this.state.errors.confirmPassword ? 'invalid' : ''}
+              name="confirm-password"
+              onChange={this.handleConfirmPasswordChange}
+              onBlur={this.validateConfirmPassword}
+            />
+            <label htmlFor="confirm-password" data-error={this.state.errors.confirmPassword} className="active">
+              Пароль еще раз
+            </label>
+          </div>
+          <div className="input-field">
+            <input
+              id="name"
+              type="text"
+              className={this.state.errors.name ? 'invalid' : ''}
+              name="name"
+              onChange={this.handleNameChange}
+              onBlur={this.validateName}
+            />
+            <label htmlFor="name" data-error={this.state.errors.name} className="active">
+              Псевдоним
+            </label>
           </div>
 
-          <div className="row">
-            <div className="input-field">
-              <input
-                id="confirm-password"
-                type="password"
-                className={this.state.errors.confirmPassword ? 'invalid' : ''}
-                name="confirm-password"
-                onChange={this.handleConfirmPasswordChange}
-                onBlur={this.validateConfirmPassword}
-              />
-              <label htmlFor="confirm-password" data-error={this.state.errors.confirmPassword} className="active">
-                Confirm password
-              </label>
-            </div>
+          <div className="input-field">
+            <input
+              id="uri"
+              type="text"
+              className={this.state.errors.uri ? 'invalid' : ''}
+              name="uri"
+              onChange={this.handleUriChange}
+              onBlur={this.validateUri}
+            />
+            <label htmlFor="uri" data-error={this.state.errors.uri} className="active">
+              Адрес для url (только латиница)
+            </label>
           </div>
 
-          <div className="row">
-            <div className="input-field">
-              <input
-                id="uri"
-                type="text"
-                className={this.state.errors.uri ? 'invalid' : ''}
-                name="uri"
-                onChange={this.handleUriChange}
-                onBlur={this.validateUri}
-              />
-              <label htmlFor="uri" data-error={this.state.errors.uri} className="active">
-                Custom URI
-              </label>
-            </div>
-          </div>
           <button className="waves-effect waves-light btn" type="submit">
-            Register
+            Зарегистрироваться
           </button>
         </form>
       </section>

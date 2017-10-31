@@ -12,10 +12,15 @@ class DiaryApp extends React.Component {
   };
 
   componentDidMount = () => {
-    console.log(this.props.match.params.uri);
-    actions.fetchEntries(this.props.match.params.uri);
+    console.log('this.props.match.params.uri', this.props.match.params.uri);
+    this.props.fetchEntries(this.props.match.params.uri);
     //await axios.post(`/api/entries/${this.props.match.params.uri}`, entryData);
   };
+
+  componentWillReceiveProps = () => {
+    console.log("componentWillReceiveProps", this.props);
+    if (this.props.view !== this.state.view) this.setState({ view: this.props.view });
+  }
 
   addEntry = () => {
     console.log('add entry');
@@ -23,8 +28,9 @@ class DiaryApp extends React.Component {
   };
 
   submitEntry = async entryData => {
-    await axios.post(`/api/entries/${this.props.match.params.uri}`, entryData);
-    actions.fetchEntries(this.props.match.params.uri);
+    console.log('entryData', entryData);
+    this.props.postEntry(this.props.match.params.uri, entryData);
+    this.props.fetchEntries(this.props.match.params.uri);
     this.setState({ view: 'entries' });
   };
 
@@ -43,7 +49,7 @@ class DiaryApp extends React.Component {
     return (
       <div>
         <div className="row">
-          <Menu addEntry={this.addEntry} />
+          <Menu addEntry={this.addEntry} user={this.props.user}/>
           {this.state.view === 'entries' && <EntryList entries={this.props.entries} />}
           {this.state.view === 'edit' && <EntryForm onSubmit={this.submitEntry} onCancel={this.showEntries} />}
         </div>
@@ -53,8 +59,9 @@ class DiaryApp extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log("mapStateToProps", state);
   return {
-    user: state.auth ? state.auth.current : null,
+    user: state.auth ? state.auth : null,
     entries: state.entries,
   };
 }

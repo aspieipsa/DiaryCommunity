@@ -6,15 +6,16 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data.current });
 };
 
+// BIG TODO: error handling
+
 export const fetchEntries = uri => async dispatch => {
-  console.log('dispatch', dispatch);
-  let res = await axios.get(`/api/entries/aaa`);
+  let res = await axios.get(`/api/entries/${uri}`);
   console.log('RES.DATA', res.data);
   dispatch({ type: FETCH_ENTRIES, payload: res.data });
 };
 
 export const postEntry = (uri, entry) => async dispatch => {
-  let res = await axios.post(`/api/entries/aaa`, entry);
-  console.log('RES.DATA', res);
+  let res = await axios.post(`/api/entries/${uri}`, entry);
+  console.log('RES.DATA', res.data);
   dispatch({ type: POST_ENTRY, payload: res.data });
 };

@@ -30,13 +30,9 @@ class App extends React.Component {
           <Route exact path="/login" component={LoginForm} />
           <Route exact path="/register" component={RegistrationForm} />
           {/*TODO: if we have routes like this, we need to make sure it is impossible to register with user urls like "main", "login", etc.*/}
-          <Route path="/:uri/profile" component={Profile} />
-
+          <Route exact path="/:uri/profile" component={Profile} />
           <Route path="/:uri/diary" component={Diary} />
-          {/* This has to be userURL specific, because a user can add an entry to a community, not just their own diary */}
-          {/* we can use the same route for new and edit */}
-          <Route path="/:uri/entry/edit" component={Diary} view={'edit'} />
-          <Route path="/:uri/entry/:id" component={Diary} view={'entry'} />
+
         </div>
       </BrowserRouter>
     );
