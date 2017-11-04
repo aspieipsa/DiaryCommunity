@@ -176,6 +176,20 @@ class RegistrationForm extends React.Component {
 
           <div className="input-field">
             <input
+              id="diary"
+              type="text"
+              className={this.state.errors.diaryTitle ? 'invalid' : ''}
+              name="diarytitle"
+              onChange={this.handleDiaryTitleChange}
+              onBlur={this.validateDiaryTitle}
+            />
+          <label htmlFor="diarytitle" data-error={this.state.errors.diaryTitle} className="active">
+              Название для дневника
+            </label>
+          </div>
+
+          <div className="input-field">
+            <input
               id="uri"
               type="text"
               className={this.state.errors.uri ? 'invalid' : ''}
@@ -184,7 +198,7 @@ class RegistrationForm extends React.Component {
               onBlur={this.validateUri}
             />
             <label htmlFor="uri" data-error={this.state.errors.uri} className="active">
-              Адрес для url (только латиница)
+              Адрес для url
             </label>
           </div>
 

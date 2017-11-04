@@ -27,14 +27,14 @@ export async function validateName(name) {
 
   const MIN_LENGTH = 1;
   const MAX_LENGTH = 50;
-  const INVALID_LENGTH = `Your username must be between ${MIN_LENGTH} and ${MAX_LENGTH} characters long.`;
+  const INVALID_LENGTH = `Псевдоним должен быть от ${MIN_LENGTH} до ${MAX_LENGTH} символов`;
   const INVALID_CHARACTERS =
-    'Your username must be an alphanumeric string with Latin or Cyrillic characters and the following characters: - _ ~ ! @ # $ & * ( ) + ? = / |  . , ; : < > [ ].';
-  const IS_MANDATORY = 'You must provide a username.';
-  const NO_MIXING = 'Your username can contain Latin or Cyrillic characters, but not both.';
-  const MUST_HAVE_LETTERS = 'Your username must contain at least one Latin or Cyrillic alphabetic character.';
-  const NO_SIDE_SPACES = 'Your username cannot start or end with a space.';
-  const NO_DOUBLE_SPACES = 'Your username cannot contain any number of consecutive spaces.';
+    'Можно использовать кириллицу, латиницу и символы: - _ ~ ! @ # $ & * ( ) + ? = / |  . , ; : < > [ ]';
+  const IS_MANDATORY = 'Обязательно';
+  const NO_MIXING = 'Смешивать латиницу и кирилицу нельзя';
+  const MUST_HAVE_LETTERS = 'Нужно хотя бы одну букву добавить';
+  const NO_SIDE_SPACES = 'Имя не может начинаться или заканчиваться пробелом';
+  const NO_DOUBLE_SPACES = 'Имя не может содержать больше одного пробела подряд';
 
   //Length
   if (name.length === 0) {
@@ -73,15 +73,15 @@ export async function validateName(name) {
 
   if (errors.length === 0) {
     if (!await isNameUnique(name)) {
-      errors.push('Username already taken :( ');
+      errors.push('Псевдоним занят');
     }
   }
   return errors;
 }
 
 export async function validateEmail(email) {
-  const INVALID_EMAIL = 'The email address you provided appears to be invalid.';
-  const NO_EMAIL = 'You must provide an email address.';
+  const INVALID_EMAIL = 'Не похоже на email';
+  const NO_EMAIL = 'Email обязателен';
   let errors = [];
   if (email.length === 0) {
     errors.push(NO_EMAIL);
@@ -92,7 +92,7 @@ export async function validateEmail(email) {
 
   if (errors.length === 0) {
     if (!await isEmailUnique(email)) {
-      errors.push('Email already used');
+      errors.push('Этот email уже зарегистрирован');
     }
   }
 
@@ -100,13 +100,13 @@ export async function validateEmail(email) {
 }
 
 export async function validateUri(uri) {
-  const MIN_LENGTH = 1;
-  const MAX_LENGTH = 50;
-  const INVALID = /[^a-z\-]/gi;
+  const MIN_LENGTH = 3;
+  const MAX_LENGTH = 30;
+  const INVALID = /[^a-z0-9]/gi;
 
-  const IS_MANDATORY = 'You must provide a custom URI.';
-  const INVALID_LENGTH = 'Your custom URI must be between 1 and 50 characters long.';
-  const INVALID_CHARACTERS = 'Your custom URI may contain only Latin characters and dashes (-).';
+  const IS_MANDATORY = 'Обязательно';
+  const INVALID_LENGTH = 'Адрес должен быть от 3 до 30 символов';
+  const INVALID_CHARACTERS = 'Адрес может содержать только латиницу и цифры';
 
   let errors = [];
 
@@ -131,14 +131,14 @@ export async function validateUri(uri) {
 }
 
 export function validatePassword(password) {
-  const MIN_LENGTH = 3;
+  const MIN_LENGTH = 5;
   const MAX_LENGTH = 50;
   const INVALID = /[^a-zа-я0-9\-_~!@#$&*()+?=/\|\\.,;:<>\[\]]/gi;
 
-  const IS_MANDATORY = 'You must provide a password.';
-  const INVALID_LENGTH = 'Your password must be between 3 and 50 characters long.';
+  const IS_MANDATORY = 'Обязательно';
+  const INVALID_LENGTH = 'Длина пароля должна быть от 5 до 50 символов';
   const INVALID_CHARACTERS =
-    'Your password must be an alphanumeric string with Latin or Cyrillic characters and the following characters: - _ ~ ! @ # $ & * ( ) + ? = / |  . , ; : < > [ ].';
+    'Можно использовать латиницу, кирилицу, цифры и символы : - _ ~ ! @ # $ & * ( ) + ? = / |  . , ; : < > [ ].';
 
   let errors = [];
 
@@ -157,7 +157,7 @@ export function validatePassword(password) {
 }
 
 export function validateConfirmPassword(password, confirmedPassword) {
-  const PASSWORD_MISMATCH = "The confirmed password doesn't match the original password.";
+  const PASSWORD_MISMATCH = "Пароли не совпадают. А должны.";
   let errors = [];
 
   if (password.length >= 8 && password !== confirmedPassword) errors.push(PASSWORD_MISMATCH);
@@ -178,11 +178,11 @@ export async function validateAll(regData) {
   if (!errors.length) {
     if (!await isNameUnique(regData.name)) {
       console.log('Username already taken');
-      errors.push('Username already taken :( ');
+      errors.push('Псевдоним занят');
     }
     if (!await isUriUnique(regData.uri)) {
       console.log('URI already taken');
-      errors.push('URI already taken :( ');
+      errors.push('Адрес занят');
     }
   }
 

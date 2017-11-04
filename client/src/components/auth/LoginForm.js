@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 //import querystring from "querystring";
-import './css/LoginForm.css';
+import './css/LogForm.css';
 
 
 class LoginForm extends React.Component {
@@ -38,21 +38,14 @@ class LoginForm extends React.Component {
   render() {
     return (
       <section className="log-in--section">
-        <h1>Log in</h1>
         <form className="log-in--form" onSubmit={this.handleOnSubmit}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Почта</label>
           <input name="email" className="log-in--input" type="text" onChange={this.handleEmailChange} />
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Пароль</label>
           <input name="password" className="log-in--input" type="password" onChange={this.handlePasswordChange} />
-          <a className="log-in--forgot-password" href="">
-            I forgot my password
-          </a>
           <button className="log-in--login-button" type="submit" onClick={this.login}>
-            Log in
+            Войти
           </button>
-          <p>
-            Don't have an account? <a href="/register">Register</a>
-          </p>
         </form>
       </section>
     );
